@@ -1,0 +1,4 @@
+jupyter-book>=1.0.4.post1,<2.0.0
+jupytext>=1.17.1,<2.0.0
+ghp-import>=2.1.0,<3.0.0
+sphinxcontrib-mermaid>=1.0.0,<2.0.0
