@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: content/00_Intro
+chapters:
+- file: content/01_MLTheory
+- file: content/02_PythonML
+- file: content/03_DecisionTrees
+- file: content/04_NeuralNetworks
+- file: content/05_ConvNeuralNetworks
+- file: content/06_Finale

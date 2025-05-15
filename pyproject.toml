@@ -1,0 +1,18 @@
+[project]
+name = "croem-ml2025"
+version = "0.1.0"
+description = "Material for CROEM ML 2025 Workshop"
+authors = [
+    {name = "Roy Cruz",email = "roy.cruz@upr.edu"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyter-book (>=1.0.4.post1,<2.0.0)",
+    "jupytext (>=1.17.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
