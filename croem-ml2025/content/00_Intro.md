@@ -88,12 +88,6 @@ However, with ML, we can ask: "what is the *function* that maps the inputs to th
         D --> |"Update model to reduce $$\;E$$"|B
     ```
 2. Testing the model: Show data to the model that it has never seen before. Make sure that the model is still performing well.
-    ```{mermaid}
-    ---
-    align:  center
-    ---
-
-    ```
 3. Deploy model: With the generalizability of the model ensured, it can be we can now go ahead and use it!
 
 ## What will we be learning?

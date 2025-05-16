@@ -4,9 +4,8 @@
 format: jb-book
 root: content/00_Intro
 chapters:
-- file: content/01_MLTheory
-- file: content/02_PythonML
-- file: content/03_DecisionTrees
-- file: content/04_NeuralNetworks
-- file: content/05_ConvNeuralNetworks
-- file: content/06_Finale
+- file: content/01_Basics-DecisionTrees
+- file: content/02_Basics-Gradient
+- file: content/03_NeuralNetworks
+- file: content/04_ConvNNs
+- file: content/05_Finale
