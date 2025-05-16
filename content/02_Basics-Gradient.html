@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Decision Trees &#8212; My sample book</title>
+    <title>Machine Learning Basics: Gradient Descent &#8212; My sample book</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'content/03_DecisionTrees';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/02_Basics-Gradient';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Neural Networks" href="04_NeuralNetworks.html" />
-    <link rel="prev" title="Machine Learning with Python" href="02_PythonML.html" />
+    <link rel="next" title="Neural Networks" href="03_NeuralNetworks.html" />
+    <link rel="prev" title="Machine Learning Basics: Decision Trees" href="01_Basics-DecisionTrees.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,12 +180,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_MLTheory.html">Machine Learning Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_PythonML.html">Machine Learning with Python</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Decision Trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_NeuralNetworks.html">Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_ConvNeuralNetworks.html">Convolutional Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_Finale.html">What’s Next?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Basics: Decision Trees</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Basics: Gradient Descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Finale.html">What’s Next?</a></li>
 </ul>
 
     </div>
@@ -257,7 +256,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/03_DecisionTrees.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/02_Basics-Gradient.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -287,7 +286,7 @@
       
       
       
-      <li><a href="../_sources/content/03_DecisionTrees.ipynb" target="_blank"
+      <li><a href="../_sources/content/02_Basics-Gradient.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -369,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Decision Trees</h1>
+    <h1>Machine Learning Basics: Gradient Descent</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,9 +382,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="decision-trees">
-<h1>Decision Trees<a class="headerlink" href="#decision-trees" title="Link to this heading">#</a></h1>
-<p>Decision trees and random forest as first example of true ML in practice</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-basics-gradient-descent">
+<h1>Machine Learning Basics: Gradient Descent<a class="headerlink" href="#machine-learning-basics-gradient-descent" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/02_Basics-Gradient.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -419,16 +418,16 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="02_PythonML.html"
+       href="01_Basics-DecisionTrees.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Machine Learning with Python</p>
+        <p class="prev-next-title">Machine Learning Basics: Decision Trees</p>
       </div>
     </a>
     <a class="right-next"
-       href="04_NeuralNetworks.html"
+       href="03_NeuralNetworks.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
