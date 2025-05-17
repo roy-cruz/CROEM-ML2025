@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,6 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs"></script>
     <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.4/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
@@ -407,13 +409,45 @@ document.write(`
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
 <section id="how-ml-is-shaping-our-world">
 <h2>How ML is shaping our world<a class="headerlink" href="#how-ml-is-shaping-our-world" title="Link to this heading">#</a></h2>
-<p>Machine learning is a powerful tool that has become ubiquotous in our day to day life. From the algorithms in Instagram determining what to show you based on your interest, to the image recognition software your phone uses to organize pictures, to the very popular ChatGPT which has started to rival Google’s search engine (which also uses ML!), ML is everywhere in our modern age. Its influence has not been restricted to the tools we use every day, but it has also been key to the many scientific discoveries. It has and is being used in many of the breakthroughs shaping our world today:</p>
+<p>Machine learning is a powerful tool that has become ubiquotous in our day to day life. From the algorithms in Instagram determining what to show you based on your interests, to the image recognition software your phone uses to organize pictures, to the very popular ChatGPT which has started to rival Google’s search engine (which also uses ML!), ML is everywhere in our modern age. Its influence has not been restricted to the tools we use every day. It has also been key to the many scientific breakthrough shaping our world today. Here are some of the more noticeable examples:</p>
 <ul>
-<li><p>The discovery of nearly all protein structures known to exist in nature</p>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/P_fHJIYENdI?si=pfYASrubrLsECICF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<li><p>Biology and medicine: AlphaFold2 predicted the 3D structure of ~200 million proteins (nearly every known protein!), which solved a 50-year-old challenge in structural biology. This will speed up drug discovery, enzyme design, and understanding disease mechanisms.</p>
+  <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/P_fHJIYENdI?si=pfYASrubrLsECICF" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      referrerpolicy="strict-origin-when-cross-origin" 
+      allowfullscreen
+  ></iframe>
 </li>
-<li><p>…</p></li>
+<li><p>High energy physics: Numerous ML models have been key for the search of new physics in experiments such as the CMS and ATLAS in the LHC at CERN.</p>
+  <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/nvYpPf-Gyjk?si=XOhqgB4Vbe4PbKfz" 
+      title="YouTube video player" 
+      align="center"
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      referrerpolicy="strict-origin-when-cross-origin" 
+      allowfullscreen
+  ></iframe>
+</li>
+<li><p>Chemistry and material science: GNoME model by Google allowed for the discovery of 2.2 million crystals which could have applications in a plethora of technologies such as computer chips and batteries. More information: <a class="reference external" href="https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/">link</a></p>
+<figure class="align-center" id="ggnome">
+<a class="reference internal image-reference" href="../_images/ggnome.png"><img alt="../_images/ggnome.png" src="../_images/ggnome.png" style="height: 250px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">“About 20,000 of the crystals experimentally identified in the ICSD database are computationally stable. Computational approaches drawing from the Materials Project, Open Quantum Materials Database and WBM database boosted this number to 48,000 stable crystals. GNoME expands the number of stable materials known to humanity to 421,000. - A. Merchant &amp; E. Dogus”</span><a class="headerlink" href="#ggnome" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>And many, many more!</p></li>
 </ul>
+<p>With how useful ML has been, its no wonder why its worth learning!</p>
 </section>
 <section id="why-is-ml-so-powerful">
 <h2>Why is ML so powerful?<a class="headerlink" href="#why-is-ml-so-powerful" title="Link to this heading">#</a></h2>
@@ -426,7 +460,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/traditional.png"><img alt="../_images/traditional.png" src="../_images/traditional.png" style="height: 150px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Problem solving with traditional programming</span><a class="headerlink" href="#traditional" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Problem solving with traditional programming</span><a class="headerlink" href="#traditional" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>This approach presents some immediate difficulty. For instance, how are you supposed to make a comprehensive list of words and phrases? And what if, after you’re done with your list, scammers notice that their emails are getting flagged if they used a particular phrase, so they change it slightly so that it is no longer captured by your algorithm. You’d need endlessly tweak and fine-tune your list and spam-detecting algorithm, continuously updating it to capture all cases. This is not a good approach!</p>
@@ -434,19 +468,17 @@ document.write(`
 <span class="n">email</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Hello! We are reaching out to you to let you know that you are the winner of a free car! Act now, because another person might claim it before you do!</span>
 <span class="s2">&quot;&quot;&quot;</span>
-<span class="n">email_words</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-
-<span class="n">spam</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">email_words</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">flag_word</span> <span class="ow">in</span> <span class="n">flag_words</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">flag_word</span> <span class="ow">in</span> <span class="n">email_words</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Potential spam found!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>An alternate approach to solve this problem would be to ditch the strict list of words and instead teach your computer how to identify spam emails without programming a strict set of rules. This is what machine learning (ML) allows us to do. A potential approach would be as follows:</p>
+<p>An alternate approach to solve this problem would be to ditch the list of words and instead teach your computer how to identify spam emails without programming a strict set of rules. This is what machine learning (ML) allows us to do. A potential approach would be as follows:</p>
 <ol class="arabic simple">
-<li><p>Have a bunch of example emails, some of which are spam and other which are not (more on that later!).</p></li>
-<li><p>Train your ML algorithm (more on that later!) with a portion of this example data.</p></li>
+<li><p>Have a bunch of example emails, some of which are known spam and other which are not.</p></li>
+<li><p>Train your ML algorithm with a portion of this example data.</p></li>
 <li><p>Evaluate the trained algorithm by running it on the rest of the data and seeing how it performs.</p></li>
 <li><p>If needed, re-train or tweak model until you reach the desired performance.</p></li>
 </ol>
@@ -454,7 +486,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/mlapproach.png"><img alt="../_images/mlapproach.png" src="../_images/mlapproach.png" style="height: 250px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Machine learning approach</span><a class="headerlink" href="#ml-approach" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Machine learning approach</span><a class="headerlink" href="#ml-approach" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>This approach is particularly powerful because the re-training fo the ML algorithm can be automated and keeping it up to date is feasible.</p>
@@ -462,7 +494,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/mlapproachauto.png"><img alt="../_images/mlapproachauto.png" src="../_images/mlapproachauto.png" style="height: 250px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Automation of machine learning approach</span><a class="headerlink" href="#ml-approachauto" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Automation of machine learning approach</span><a class="headerlink" href="#ml-approachauto" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>As can be seen from this simple example, ML turns traditional problem-solving on its head. In classical programming, we define a set of rules or functions that map inputs to outputs.</p>
@@ -481,7 +513,7 @@ document.write(`
     D --&gt; |&quot;Update model to reduce $$\;E$$&quot;|B
     </pre></li>
 <li><p>Testing the model: Show data to the model that it has never seen before. Make sure that the model is still performing well.</p></li>
-<li><p>Deploy model: With the generalizability of the model ensured, it can be we can now go ahead and use it!</p></li>
+<li><p>Deploy model: With the generalizability of the model ensured, we can now go ahead and use it!</p></li>
 </ol>
 </section>
 <section id="what-will-we-be-learning">
@@ -492,7 +524,7 @@ document.write(`
 <li><p>Be familiar with some basic ML models that are commonly used and serve as basis for other, more advanced models.</p></li>
 <li><p>Be able to solve simple problems with ML.</p></li>
 </ol>
-<p>The material provided in the following chapters are actually Jupyter Notebooks that you can open in Google Colab, modify and run by clicking the <a class="reference external" href="https://youtu.be/SWkMYO9V_-k?si=_LqIOmEichwVLkz_"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>. Go ahead and click on any on the links below to more ahead in the material!</p>
+<p>The material provided in the following chapters are actually Jupyter Notebooks that you can open in Google Colab, modify and run by clicking the <a class="reference external" href="https://youtu.be/5LB_y-nudGU?si=MYDYvubUH8qLpm89"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a>. Go ahead and click on any on the links below to more ahead in the material!</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Basics: Decision Trees</a></li>
