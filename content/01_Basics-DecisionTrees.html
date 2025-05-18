@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -434,7 +434,7 @@ document.write(`
     </pre><p>We see multiple parts in the tree shown above. Here are its main components:</p>
 <ul class="simple">
 <li><p>Root node or root: The very top node in the tree</p></li>
-<li><p>Internal nodes: They have arrows pointing to them and away from them.</p></li>
+<li><p>Internal or decision nodes: They have arrows pointing to them and away from them.</p></li>
 <li><p>Leaf nodes or leaves: They only have arrows pointing to them and represent the final classification.</p></li>
 </ul>
 <p>Note that an arrow to the left typically represents <code class="docutils literal notranslate"><span class="pre">True</span></code>, while an arrow to the right represents <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
@@ -1071,8 +1071,46 @@ F1 Score: 0.8905
 <p>We can see that the series of splits in the decision tree create an interesting decision boundary made up of straight segments. This plot highlights the importance of selecting features that clearly separate the classes: the greater the separation between samples of different classes, the more accurately the model can classify them. Well-chosen features lead to simpler, more effective decision boundaries and better model performance!</p>
 <section id="how-does-a-tree-learn">
 <h3>How does a tree “learn”?<a class="headerlink" href="#how-does-a-tree-learn" title="Link to this heading">#</a></h3>
-<p>(A bit of the theory, math and algorithms behind decision trees.)</p>
-</section>
+<p>Ask yourself this: when we were training the tree, how did it know what cut to make to which feature in each decision node in order to get the best results? While at first it might seem somewhat mysterious when you think about it, how the model actually trains is relatively straight forward, and it comes down to a common theme in ML: the minimization/maximization of some metric guiding an iterative training process. Let’s look at in more closely to get an understanding.</p>
+<p>Suppose you are training on just the 2 data points shown below.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Index</p></th>
+<th class="head"><p>mean radius</p></th>
+<th class="head"><p>mean smoothness</p></th>
+<th class="head"><p>target</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>204</p></td>
+<td><p>11.54</p></td>
+<td><p>0.0996</p></td>
+<td><p>1 (benign)</p></td>
+</tr>
+<tr class="row-odd"><td><p>70</p></td>
+<td><p>12.47</p></td>
+<td><p>0.1092</p></td>
+<td><p>0 (malignant)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In your first node</p>
+<pre  class="mermaid">
+        flowchart TD
+    A[All data at node] --&gt;|Try split on mean radius| B1[mean radius &lt;= 11.54]
+    A --&gt;|Try split on mean radius| B2[mean radius &lt;= 12.47]
+    A --&gt;|Try split on mean smoothness| B4[mean smoothness &lt;= 0.09965]
+    A --&gt;|Try split on mean smoothness| B5[mean smoothness &lt;= 0.10920]
+    B1 --&gt; C1[Compute impurity]
+    B2 --&gt; C2[Compute impurity]
+    B4 --&gt; C4[Compute impurity]
+    B5 --&gt; C5[Compute impurity]
+    C1 --&gt; D[Choose split with lowest impurity]
+    C2 --&gt; D
+    C4 --&gt; D
+    C5 --&gt; D
+    </pre></section>
 </section>
 <section id="testing-our-tree">
 <h2>Testing our tree<a class="headerlink" href="#testing-our-tree" title="Link to this heading">#</a></h2>
@@ -1100,6 +1138,7 @@ F1 Score: 0.9118
 <img alt="../_images/78c87d5ca16f21a0fcbd77bef1a27318e6b04073ff9d55c1e14f1bd4c5c5c0dc.png" src="../_images/78c87d5ca16f21a0fcbd77bef1a27318e6b04073ff9d55c1e14f1bd4c5c5c0dc.png" />
 </div>
 </div>
+<p>If the model we made is made is any good, it should be able to achieve similar performace in the testing dataset as the one we observed in the validation dataset, which just means that it generalizes well. But what if the model doesn’t generalize well at all? How would that look like?</p>
 </section>
 <section id="overfitting-and-underfitting">
 <h2>Overfitting and underfitting<a class="headerlink" href="#overfitting-and-underfitting" title="Link to this heading">#</a></h2>
@@ -1119,23 +1158,13 @@ F1 Score: 0.9118
     <span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf_overfit</span> <span class="o">=</span> <span class="n">clf_overfit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+
+<span class="n">clf_overfit</span> <span class="o">=</span> <span class="n">clf_overfit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
     <span class="n">X_train</span><span class="p">,</span> 
     <span class="n">y_train</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 <span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
     <span class="n">clf_overfit</span><span class="p">,</span> 
     <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -1150,6 +1179,7 @@ F1 Score: 0.9118
 <img alt="../_images/b1b332ab094b6537cff6136994dc92334391d048bf72522f8d6fb98e7ccec104.png" src="../_images/b1b332ab094b6537cff6136994dc92334391d048bf72522f8d6fb98e7ccec104.png" />
 </div>
 </div>
+<p>That’s a very complicated tree! This, however, does not translate to better generalizability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing model on training and validation sets</span>
@@ -1180,6 +1210,7 @@ F1 Score: 0.8511
 </div>
 </div>
 </div>
+<p>In addition, when looking at the decision boundaries, we can see that it has a very weird shape. This is because, instead of only capturing the general behavior of the data, it captures noise and statistical variability in it instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf_overfit</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span> <span class="n">features_indices</span><span class="p">)</span>
@@ -1196,6 +1227,584 @@ F1 Score: 0.8511
 </section>
 <section id="practice">
 <h2>Practice<a class="headerlink" href="#practice" title="Link to this heading">#</a></h2>
+<p>Build a model that classifies the data with an &gt; 0.95 in recall (why recall and not another metric?) in the validation dataset. Note that you are allowed to use other features and modify the model is other ways. For more information on the things you can change, take a look at the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">documentation</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+<span class="n">data_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean radius</th>
+      <th>mean texture</th>
+      <th>mean perimeter</th>
+      <th>mean area</th>
+      <th>mean smoothness</th>
+      <th>mean compactness</th>
+      <th>mean concavity</th>
+      <th>mean concave points</th>
+      <th>mean symmetry</th>
+      <th>mean fractal dimension</th>
+      <th>...</th>
+      <th>worst texture</th>
+      <th>worst perimeter</th>
+      <th>worst area</th>
+      <th>worst smoothness</th>
+      <th>worst compactness</th>
+      <th>worst concavity</th>
+      <th>worst concave points</th>
+      <th>worst symmetry</th>
+      <th>worst fractal dimension</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.99</td>
+      <td>10.38</td>
+      <td>122.80</td>
+      <td>1001.0</td>
+      <td>0.11840</td>
+      <td>0.27760</td>
+      <td>0.30010</td>
+      <td>0.14710</td>
+      <td>0.2419</td>
+      <td>0.07871</td>
+      <td>...</td>
+      <td>17.33</td>
+      <td>184.60</td>
+      <td>2019.0</td>
+      <td>0.16220</td>
+      <td>0.66560</td>
+      <td>0.7119</td>
+      <td>0.2654</td>
+      <td>0.4601</td>
+      <td>0.11890</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.57</td>
+      <td>17.77</td>
+      <td>132.90</td>
+      <td>1326.0</td>
+      <td>0.08474</td>
+      <td>0.07864</td>
+      <td>0.08690</td>
+      <td>0.07017</td>
+      <td>0.1812</td>
+      <td>0.05667</td>
+      <td>...</td>
+      <td>23.41</td>
+      <td>158.80</td>
+      <td>1956.0</td>
+      <td>0.12380</td>
+      <td>0.18660</td>
+      <td>0.2416</td>
+      <td>0.1860</td>
+      <td>0.2750</td>
+      <td>0.08902</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19.69</td>
+      <td>21.25</td>
+      <td>130.00</td>
+      <td>1203.0</td>
+      <td>0.10960</td>
+      <td>0.15990</td>
+      <td>0.19740</td>
+      <td>0.12790</td>
+      <td>0.2069</td>
+      <td>0.05999</td>
+      <td>...</td>
+      <td>25.53</td>
+      <td>152.50</td>
+      <td>1709.0</td>
+      <td>0.14440</td>
+      <td>0.42450</td>
+      <td>0.4504</td>
+      <td>0.2430</td>
+      <td>0.3613</td>
+      <td>0.08758</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11.42</td>
+      <td>20.38</td>
+      <td>77.58</td>
+      <td>386.1</td>
+      <td>0.14250</td>
+      <td>0.28390</td>
+      <td>0.24140</td>
+      <td>0.10520</td>
+      <td>0.2597</td>
+      <td>0.09744</td>
+      <td>...</td>
+      <td>26.50</td>
+      <td>98.87</td>
+      <td>567.7</td>
+      <td>0.20980</td>
+      <td>0.86630</td>
+      <td>0.6869</td>
+      <td>0.2575</td>
+      <td>0.6638</td>
+      <td>0.17300</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20.29</td>
+      <td>14.34</td>
+      <td>135.10</td>
+      <td>1297.0</td>
+      <td>0.10030</td>
+      <td>0.13280</td>
+      <td>0.19800</td>
+      <td>0.10430</td>
+      <td>0.1809</td>
+      <td>0.05883</td>
+      <td>...</td>
+      <td>16.67</td>
+      <td>152.20</td>
+      <td>1575.0</td>
+      <td>0.13740</td>
+      <td>0.20500</td>
+      <td>0.4000</td>
+      <td>0.1625</td>
+      <td>0.2364</td>
+      <td>0.07678</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>564</th>
+      <td>21.56</td>
+      <td>22.39</td>
+      <td>142.00</td>
+      <td>1479.0</td>
+      <td>0.11100</td>
+      <td>0.11590</td>
+      <td>0.24390</td>
+      <td>0.13890</td>
+      <td>0.1726</td>
+      <td>0.05623</td>
+      <td>...</td>
+      <td>26.40</td>
+      <td>166.10</td>
+      <td>2027.0</td>
+      <td>0.14100</td>
+      <td>0.21130</td>
+      <td>0.4107</td>
+      <td>0.2216</td>
+      <td>0.2060</td>
+      <td>0.07115</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>565</th>
+      <td>20.13</td>
+      <td>28.25</td>
+      <td>131.20</td>
+      <td>1261.0</td>
+      <td>0.09780</td>
+      <td>0.10340</td>
+      <td>0.14400</td>
+      <td>0.09791</td>
+      <td>0.1752</td>
+      <td>0.05533</td>
+      <td>...</td>
+      <td>38.25</td>
+      <td>155.00</td>
+      <td>1731.0</td>
+      <td>0.11660</td>
+      <td>0.19220</td>
+      <td>0.3215</td>
+      <td>0.1628</td>
+      <td>0.2572</td>
+      <td>0.06637</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>566</th>
+      <td>16.60</td>
+      <td>28.08</td>
+      <td>108.30</td>
+      <td>858.1</td>
+      <td>0.08455</td>
+      <td>0.10230</td>
+      <td>0.09251</td>
+      <td>0.05302</td>
+      <td>0.1590</td>
+      <td>0.05648</td>
+      <td>...</td>
+      <td>34.12</td>
+      <td>126.70</td>
+      <td>1124.0</td>
+      <td>0.11390</td>
+      <td>0.30940</td>
+      <td>0.3403</td>
+      <td>0.1418</td>
+      <td>0.2218</td>
+      <td>0.07820</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>567</th>
+      <td>20.60</td>
+      <td>29.33</td>
+      <td>140.10</td>
+      <td>1265.0</td>
+      <td>0.11780</td>
+      <td>0.27700</td>
+      <td>0.35140</td>
+      <td>0.15200</td>
+      <td>0.2397</td>
+      <td>0.07016</td>
+      <td>...</td>
+      <td>39.42</td>
+      <td>184.60</td>
+      <td>1821.0</td>
+      <td>0.16500</td>
+      <td>0.86810</td>
+      <td>0.9387</td>
+      <td>0.2650</td>
+      <td>0.4087</td>
+      <td>0.12400</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>7.76</td>
+      <td>24.54</td>
+      <td>47.92</td>
+      <td>181.0</td>
+      <td>0.05263</td>
+      <td>0.04362</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.1587</td>
+      <td>0.05884</td>
+      <td>...</td>
+      <td>30.37</td>
+      <td>59.16</td>
+      <td>268.6</td>
+      <td>0.08996</td>
+      <td>0.06444</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.2871</td>
+      <td>0.07039</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>569 rows × 31 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot histogram of all features in data_df using sns</span>
+<span class="k">for</span> <span class="n">ftr</span> <span class="ow">in</span> <span class="n">data_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span>
+        <span class="n">data_df</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">ftr</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span>
+        <span class="n">common_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribution of </span><span class="si">{</span><span class="n">ftr</span><span class="si">}</span><span class="s2"> by Class&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">ftr</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Class&quot;</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4895464165f38a035474fdbd995f54320a177e109c164a185d75dfefc2fe8666.png" src="../_images/4895464165f38a035474fdbd995f54320a177e109c164a185d75dfefc2fe8666.png" />
+<img alt="../_images/a3e0de35bfdb43399e04637618283b98473cb6b1be992177d472268477674e09.png" src="../_images/a3e0de35bfdb43399e04637618283b98473cb6b1be992177d472268477674e09.png" />
+<img alt="../_images/e15c21011969f8eed19615a3ce56810fa7b4e422763eb57628134e9eba4ca35a.png" src="../_images/e15c21011969f8eed19615a3ce56810fa7b4e422763eb57628134e9eba4ca35a.png" />
+<img alt="../_images/c4ff4b122cba86ac2d9693401a34cebb46d682de67e29a409bab0f0f98fe1a6c.png" src="../_images/c4ff4b122cba86ac2d9693401a34cebb46d682de67e29a409bab0f0f98fe1a6c.png" />
+<img alt="../_images/c3a8f283c9b379550ded9c534aba7ae442de1515157d38d8820c833a993e6f49.png" src="../_images/c3a8f283c9b379550ded9c534aba7ae442de1515157d38d8820c833a993e6f49.png" />
+<img alt="../_images/db9ec42efa3f6b2445cbc01e967e04b0d091d3fa4f026b4ccef3a8baa4ae8858.png" src="../_images/db9ec42efa3f6b2445cbc01e967e04b0d091d3fa4f026b4ccef3a8baa4ae8858.png" />
+<img alt="../_images/6603f49631dbe15917456fc6f6ae5d1f293e526213a2f7f01c52606549b803ad.png" src="../_images/6603f49631dbe15917456fc6f6ae5d1f293e526213a2f7f01c52606549b803ad.png" />
+<img alt="../_images/f19bd0e0dbcd36c2f2117329c1c6e81cba823175604291429f98bcec7579b1a1.png" src="../_images/f19bd0e0dbcd36c2f2117329c1c6e81cba823175604291429f98bcec7579b1a1.png" />
+<img alt="../_images/0aa70a6905e3c2ce052b8b8941c98f5604ab76e2fde29f1f0d37b028cebe4514.png" src="../_images/0aa70a6905e3c2ce052b8b8941c98f5604ab76e2fde29f1f0d37b028cebe4514.png" />
+<img alt="../_images/4488e2657712b38eeb3eeca58c720585894bb781f89f6ba66e37b7b4b5517e44.png" src="../_images/4488e2657712b38eeb3eeca58c720585894bb781f89f6ba66e37b7b4b5517e44.png" />
+<img alt="../_images/63b6037b18ff9ea67340fb60a489e8adf5070cd7fcc2113a9aa3a7f6be9984aa.png" src="../_images/63b6037b18ff9ea67340fb60a489e8adf5070cd7fcc2113a9aa3a7f6be9984aa.png" />
+<img alt="../_images/62a9317babf08b6f23a17e33053af28644341d8d1590a3063e4abdd2ad300fd4.png" src="../_images/62a9317babf08b6f23a17e33053af28644341d8d1590a3063e4abdd2ad300fd4.png" />
+<img alt="../_images/f6944af11a5924c7026dfeef986eb7845bd4363bf00747cd0cf025415abdf531.png" src="../_images/f6944af11a5924c7026dfeef986eb7845bd4363bf00747cd0cf025415abdf531.png" />
+<img alt="../_images/f5af1f53d3ffafa26ad4b7eb9d7ba5ff41ef6eb235ac8a7a1b3b7c9d0d80a19b.png" src="../_images/f5af1f53d3ffafa26ad4b7eb9d7ba5ff41ef6eb235ac8a7a1b3b7c9d0d80a19b.png" />
+<img alt="../_images/55e38ee0c27bb18382e1abed65fb0d6811dab9f830c12c1dfe174dde23c2882b.png" src="../_images/55e38ee0c27bb18382e1abed65fb0d6811dab9f830c12c1dfe174dde23c2882b.png" />
+<img alt="../_images/1f540b6d5e4d50bd6a67ace55f55d3defb521b8d9f64508c889efa1bfda23f74.png" src="../_images/1f540b6d5e4d50bd6a67ace55f55d3defb521b8d9f64508c889efa1bfda23f74.png" />
+<img alt="../_images/50256c8db61c817baeef2344f11138d00a0a991d4f1eb9f50ca832735f7df82e.png" src="../_images/50256c8db61c817baeef2344f11138d00a0a991d4f1eb9f50ca832735f7df82e.png" />
+<img alt="../_images/a92431f2904285a9641757546292a3d7a32f22e9cb4fa05b2599afd642d81200.png" src="../_images/a92431f2904285a9641757546292a3d7a32f22e9cb4fa05b2599afd642d81200.png" />
+<img alt="../_images/c5d2a42d63785e792f4157b15de29c901fbbf327f5ea1db447c389ca06c90427.png" src="../_images/c5d2a42d63785e792f4157b15de29c901fbbf327f5ea1db447c389ca06c90427.png" />
+<img alt="../_images/a5888e2b20eb010fd5b561f6cfd0d0d448c5f7f20d29823b268a15ef8ae076be.png" src="../_images/a5888e2b20eb010fd5b561f6cfd0d0d448c5f7f20d29823b268a15ef8ae076be.png" />
+<img alt="../_images/a57eca44ad13814995e8c197bc7e4919a8d244866060faa0ad7e5a8c99bb90b8.png" src="../_images/a57eca44ad13814995e8c197bc7e4919a8d244866060faa0ad7e5a8c99bb90b8.png" />
+<img alt="../_images/3b8aebeb6540843c46474bc045ccc8eac056b14af4e0a2e4e0caa9ab28241473.png" src="../_images/3b8aebeb6540843c46474bc045ccc8eac056b14af4e0a2e4e0caa9ab28241473.png" />
+<img alt="../_images/4cf9e658ed96e5c608255065e2e51d34414d82498587981c2b584066324472ce.png" src="../_images/4cf9e658ed96e5c608255065e2e51d34414d82498587981c2b584066324472ce.png" />
+<img alt="../_images/ddcb19bdddedae6572972a61948a00e8ef38ae44e5e61cce14e2aa88710dc8be.png" src="../_images/ddcb19bdddedae6572972a61948a00e8ef38ae44e5e61cce14e2aa88710dc8be.png" />
+<img alt="../_images/33ae622ec4a400c75b394f2de3032cfb1b1e3a3b2f116b2e53854a7ec39e5b7b.png" src="../_images/33ae622ec4a400c75b394f2de3032cfb1b1e3a3b2f116b2e53854a7ec39e5b7b.png" />
+<img alt="../_images/a8566f42fd55f5c5723ead106c29a487326d90f53b7d047d4e44436b85f0d95c.png" src="../_images/a8566f42fd55f5c5723ead106c29a487326d90f53b7d047d4e44436b85f0d95c.png" />
+<img alt="../_images/a149a8bfe713fce38ae2b23e9fcfff32c1dde0fd055eac92de511dfe5f11b6e1.png" src="../_images/a149a8bfe713fce38ae2b23e9fcfff32c1dde0fd055eac92de511dfe5f11b6e1.png" />
+<img alt="../_images/e8bcfb49853302e60463271247fafbfd42b3dcdaf9b975fa0b3a580787a41206.png" src="../_images/e8bcfb49853302e60463271247fafbfd42b3dcdaf9b975fa0b3a580787a41206.png" />
+<img alt="../_images/22ec67a335219e80c9eb59be59ce3d6a1675d15ed175c36773d032c2952da3f2.png" src="../_images/22ec67a335219e80c9eb59be59ce3d6a1675d15ed175c36773d032c2952da3f2.png" />
+<img alt="../_images/550d4d415917132fa9c82238bf35d8051e9def31bf15468706379d7ed90f0318.png" src="../_images/550d4d415917132fa9c82238bf35d8051e9def31bf15468706379d7ed90f0318.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_features</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;worst concave points&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst concavity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst compactness&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst area&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst perimeter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst texture&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;worst radius&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean concave points&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean concavity&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean compactness&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean area&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean perimeter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean texture&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean radius&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="n">selected_features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_size</span> <span class="o">=</span> <span class="mf">0.6</span> <span class="c1"># 60% of the data will be used for training</span>
+<span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="c1"># 20% of the data will be used for testing</span>
+<span class="n">val_size</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="c1"># 20% of the training data will be used for validation</span>
+
+<span class="k">assert</span> <span class="n">train_size</span> <span class="o">+</span> <span class="n">test_size</span> <span class="o">+</span> <span class="n">val_size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Train, test, and validation sizes must sum to 1&quot;</span>
+
+<span class="c1"># Split data into training, validation, and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> 
+    <span class="n">y</span><span class="p">,</span> 
+    <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_train</span><span class="p">,</span> 
+    <span class="n">y_train</span><span class="p">,</span> 
+    <span class="n">test_size</span><span class="o">=</span><span class="n">val_size</span><span class="o">/</span><span class="p">(</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">),</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_val</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span>
+        <span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">X_train</span><span class="p">,</span> 
+        <span class="n">y_train</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Testing model on training and validation sets</span>
+    <span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+
+    <span class="c1"># Compute metrics for training and validation sets</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAX DEPTH=&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Set Metrics:&quot;</span><span class="p">)</span>
+    <span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Validation Set Metrics:&quot;</span><span class="p">)</span>
+    <span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(341, 14) (114, 14) (114, 14)
+MAX DEPTH= 1
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 2
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 3
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 4
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 5
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 6
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 7
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 8
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+
+MAX DEPTH= 9
+Training Set Metrics:
+Accuracy: 1.0000
+Precision: 1.0000
+Recall: 1.0000
+F1 Score: 1.0000
+
+Validation Set Metrics:
+Accuracy: 0.9211
+Precision: 0.9552
+Recall: 0.9143
+F1 Score: 0.9343
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

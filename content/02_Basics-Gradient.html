@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Machine Learning Basics: Gradient Descent &#8212; My sample book</title>
+    <title>Basic Terminology &#8212; My sample book</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,6 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/02_Basics-Gradient';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -181,7 +183,8 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Basics: Decision Trees</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Basics: Gradient Descent</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Terminology</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_Finale.html">What’s Next?</a></li>
@@ -357,7 +360,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -368,11 +373,39 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Machine Learning Basics: Gradient Descent</h1>
+    <h1>Basic Terminology</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic Terminology</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-implementation">Gradient Descent Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-function-and-its-gradient">1. Quadratic Function and Its Gradient</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Gradient Descent Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-descent-on-the-quadratic">Visualizing descent on the Quadratic</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-gradient-descent">Types of Gradient Descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-gradient-descent">Batch Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">Stochastic Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-gradient-descent">Mini-batch Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sgd-vs-bgd-2d-quadratic-function">SGD vs BGD: 2D Quadratic Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-study">Further study</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -382,9 +415,310 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-basics-gradient-descent">
-<h1>Machine Learning Basics: Gradient Descent<a class="headerlink" href="#machine-learning-basics-gradient-descent" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/02_Basics-Gradient.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+  <p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/02_Basics-Gradient.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="basic-terminology">
+<h1>Basic Terminology<a class="headerlink" href="#basic-terminology" title="Link to this heading">#</a></h1>
+<p>You have already seen the first example of machine learning as decision trees. Now its time for ML with neural networks. Before going into the details of it, let us first understand the idea of “gradient descent”. Let us first understand three basic terminology of ML</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><b>Data(<span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>) </b> Here the <em>index</em> <span class="math notranslate nohighlight">\(i\)</span> represents the <span class="math notranslate nohighlight">\(i^{th}\)</span> datapoint. Traditionally <span class="math notranslate nohighlight">\(x_i\)</span> refers to the <b>input/instance</b> and <span class="math notranslate nohighlight">\(y_i\)</span> refers to the <b>output</b> or <b>labels</b> of the data. For example each <span class="math notranslate nohighlight">\(x_i\)</span> can be the images of certain animals (collection of RGB information of all the pixel in that particular image) and <span class="math notranslate nohighlight">\(y_i\)</span> can be a string of numbers denoting the type of animal (ex: <span class="math notranslate nohighlight">\(100\cdots\)</span>=&gt; Dog, <span class="math notranslate nohighlight">\(010\cdots\)</span>=&gt; Cat, <span class="math notranslate nohighlight">\(001\cdots\)</span>=&gt; Lion and so on)</p></li>
+<li><p><b>Model: </b> A complicated enough function <span class="math notranslate nohighlight">\(f\)</span> such that <span class="math notranslate nohighlight">\(f(x_i;\theta)=y_i\)</span> where <span class="math notranslate nohighlight">\(\theta\)</span> denotes some internal parameters of the function. For example, if <span class="math notranslate nohighlight">\(x_i\)</span> denotes time and <span class="math notranslate nohighlight">\(y_i\)</span> denotes the position of a projectile then one might try to find a model <span class="math notranslate nohighlight">\(f(x;a,b,c)= ax^2+bx +c\)</span> with the internal parameters <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(c\)</span> such that <span class="math notranslate nohighlight">\(f\)</span> is a very good approximation of the relation between the input/output of the data (<span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>). In a general setup <span class="math notranslate nohighlight">\(f\)</span> needs to be built out of thousands or millions of internal parameters for the dataset with animal pictures and the labels.</p></li>
+<li><p><b>Loss Function:</b> In principle, you are free to choose and try-out different functions <span class="math notranslate nohighlight">\(f\)</span> with different internal parameters to <em>fit</em> a particular data. The question of <em>goodness</em> or <em>badness</em> of the function is determined by another function, called the <b>Loss function</b>. <br>
+It determines how well the the model <span class="math notranslate nohighlight">\(y=f(x;\theta)\)</span> predicts the data (<span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>). One quick example would be <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)=\sum_i(y_i-f(x_i;\theta))^2\)</span>, dubbed as the <em>mean square error</em>. There exists several different kinds of loss functions depending on the scope and aim of the model that we are working with. In all of them the basic target is to methodically change the internal parameters <span class="math notranslate nohighlight">\(\theta\)</span> of the model <span class="math notranslate nohighlight">\(f(x;\theta)\)</span> such that the the loss function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> is optimised.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gradient-descent">
+<h1>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
+<p>The method of <strong>Gradient Descent</strong> is a fundamental optimization algorithm used in machine learning. Students can modify code cells and visualize how learning rate, number of iterations, and function choice affect convergence.</p>
+<h3> Why? </h3>
+For most applications of machine learning, the final goal boils down to optimising the *loss function* given a *dataset* and a *model*.
+<h3>What?</h3>
+At its core, gradient descent is a method of reaching to the extrema of a given function. <br><br>
+<blockquote>
+<div><p>The <em>Gradient</em> or slope measures how a function changes with regards to small changes in its parameters.
+Example: For a function <span class="math notranslate nohighlight">\(f(x)=x^2\)</span> its slope is <span class="math notranslate nohighlight">\(f'(x)\equiv \frac{d f(x)}{dx}= 2x\)</span>.</p>
+</div></blockquote>
+<p>Imagine you are standing on a smooth mountain at night and you need to go to the bottom of the mountain for shelter quickly then</p>
+<ul class="simple">
+<li><p>you investigate the slope (the *gradient) at your feet in various directions.</p></li>
+<li><p>you take a small step downhill in the direction of the steepest descent.</p></li>
+<li><p>do the same until you reach the bottom.
+<br></p></li>
+</ul>
+<h3>How</h3>
+<p>More mathematically, for a differentiable loss function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, the <strong>gradient descent</strong> update is</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_{t+1}=\theta_t-\alpha \nabla_\theta(\mathcal{L}(\theta))
+\]</div>
+<p>which should be repeated until the the <span class="math notranslate nohighlight">\(\theta\)</span> values <strong>converge</strong> or not change much as the steps (denoted by <span class="math notranslate nohighlight">\(t\)</span>) evolve.
+In the formula above</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> is called the <strong>learning rate</strong>, which define the step size.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_{t}\)</span> denotes the value of the internal parameters in the current step and <span class="math notranslate nohighlight">\(\theta_{t+1}\)</span> tells you what should be the value of the internal parameters on the next step if one follows the gradient descent method.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nabla_\theta(\mathcal{L}(\theta))\)</span> symbolises the gradient of the loss function with respect to various internal parameters.</p></li>
+</ul>
+<section id="gradient-descent-implementation">
+<h2>Gradient Descent Implementation<a class="headerlink" href="#gradient-descent-implementation" title="Link to this heading">#</a></h2>
+<p>At first let us introduce some packages</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">IntSlider</span>
+
+<span class="c1"># If you&#39;re using Google Colab, run this once</span>
+<span class="c1"># !pip install ipywidgets --quiet</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section id="quadratic-function-and-its-gradient">
+<h3>1. Quadratic Function and Its Gradient<a class="headerlink" href="#quadratic-function-and-its-gradient" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[f(\theta) = \theta^2\]</div>
+<div class="math notranslate nohighlight">
+\[f'(\theta) = 2\theta\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">grad_f</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">theta</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h4>Gradient Descent Implementation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Update rule:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{t+1} = \theta_t - \alpha \nabla f(\theta_t)\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gradient_descent</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">iterations</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_f</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualizing-descent-on-the-quadratic">
+<h3>Visualizing descent on the Quadratic<a class="headerlink" href="#visualizing-descent-on-the-quadratic" title="Link to this heading">#</a></h3>
+<p>Use sliders to adjust the learning rate and number of steps and <em>check the following</em> statements</p>
+<ul class="simple">
+<li><p>if <span class="math notranslate nohighlight">\(\alpha\)</span> is too small -&gt; very slow convergence</p></li>
+<li><p>if <span class="math notranslate nohighlight">\(\alpha\)</span> is too big -&gt; might oscillate or diverge</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_gd</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+
+    <span class="c1"># Compute convergence step</span>
+    <span class="n">convergence_eps</span> <span class="o">=</span> <span class="mf">1e-3</span>
+    <span class="n">converged_at</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">convergence_eps</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$f(x)=x^2$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Descent Steps&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Gradient Descent Path)&#39;</span>
+    <span class="k">if</span> <span class="n">converged_at</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Converged at step </span><span class="si">{</span><span class="n">converged_at</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Did not converge within given steps&quot;</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+
+
+<span class="n">interact</span><span class="p">(</span><span class="n">plot_gd</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">steps</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "339fd57a02cc4769bad960ecf5f44930", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_gd(lr=0.1, steps=20, start=5.0)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="types-of-gradient-descent">
+<h2>Types of Gradient Descent<a class="headerlink" href="#types-of-gradient-descent" title="Link to this heading">#</a></h2>
+<p>There are three popular formats of gradient descent</p>
+<section id="batch-gradient-descent">
+<h3>Batch Gradient Descent<a class="headerlink" href="#batch-gradient-descent" title="Link to this heading">#</a></h3>
+<p>Computes the gradient of the loss function using the <strong>entire dataset</strong>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Pros:</strong> Stable and accurate updates; good for convex functions.<br></p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Cons:</strong> Very slow on large datasets; high memory usage.<br></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="stochastic-gradient-descent">
+<h3>Stochastic Gradient Descent<a class="headerlink" href="#stochastic-gradient-descent" title="Link to this heading">#</a></h3>
+<p>Updates parameters using only one random sample at each step and introduces some noise</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Pros:</strong> Fast and can escape local minima; low memory footprint. <br></p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Cons:</strong> Noisy updates lead to fluctuations; may not converge smoothly. <br></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="mini-batch-gradient-descent">
+<h3>Mini-batch Gradient Descent<a class="headerlink" href="#mini-batch-gradient-descent" title="Link to this heading">#</a></h3>
+<p>Computes the gradient using a small random subset (mini-batch) of the data.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Pros:</strong> Combines speed of SGD with stability of batch GD; suitable for GPUs. <br></p></li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Cons:</strong> Still introduces some noise; batch size selection is critical. <br></p></li>
+</ul>
+</div></blockquote>
+<p>All these variations are trade-offs between <strong>speed</strong>, <strong>stability</strong>, and <strong>resource usage</strong>, and the choice depends on the dataset size and hardware constraints.</p>
+</section>
+<section id="sgd-vs-bgd-2d-quadratic-function">
+<h3>SGD vs BGD: 2D Quadratic Function<a class="headerlink" href="#sgd-vs-bgd-2d-quadratic-function" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[f(\theta_1, \theta_2) = (\theta_1-2)^2 + (\theta_2-2)^2\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the quadratic loss function and its gradient</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">loss</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quadratic loss: (θ1 - 2)^2 + (θ2 - 3)^2&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">grad_loss</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exact gradient of the loss&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)])</span>
+
+<span class="c1"># Batch Gradient Descent</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">batch_gd</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">theta</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_loss</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="c1"># Stochastic Gradient Descent (adds Gaussian noise to gradient)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sgd</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">noise_scale</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">theta</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">grad_loss</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise_scale</span>
+        <span class="n">theta</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_descent</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">start1</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">start2</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">135</span><span class="p">):</span>
+    <span class="c1"># Compute trajectories</span>
+    <span class="n">bd_path</span> <span class="o">=</span> <span class="n">batch_gd</span><span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="n">lr</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span>
+    <span class="n">sd_path</span> <span class="o">=</span> <span class="n">sgd</span><span class="p">([</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="n">lr</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">steps</span><span class="p">),</span> <span class="n">noise</span><span class="p">)</span>
+    
+    <span class="c1"># Dynamically choose plotting range around data</span>
+    <span class="c1"># include both start and optimum (2,3)</span>
+    <span class="n">mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([[</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">maxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([[</span><span class="n">start1</span><span class="p">,</span> <span class="n">start2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">mins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">maxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">mins</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">maxs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">AA</span><span class="p">,</span> <span class="n">BB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">ZZ</span> <span class="o">=</span> <span class="p">(</span><span class="n">AA</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">BB</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">AA</span><span class="p">,</span> <span class="n">BB</span><span class="p">,</span> <span class="n">ZZ</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bd_path</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">bd_path</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">loss</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">bd_path</span><span class="p">],</span>
+            <span class="s1">&#39;ro--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Batch GD&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sd_path</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">sd_path</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">loss</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sd_path</span><span class="p">],</span>
+            <span class="s1">&#39;bx--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SGD&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GD on f=(θ₁-2)²+(θ₂-3)²</span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;lr=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s2">, steps=</span><span class="si">{</span><span class="n">steps</span><span class="si">}</span><span class="s2">, noise=</span><span class="si">{</span><span class="n">noise</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;θ₁&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;θ₂&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Loss&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># apply interactive view angles</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="n">azim</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Now include elev/azim sliders in the interact call</span>
+<span class="n">interact</span><span class="p">(</span>
+    <span class="n">plot_descent</span><span class="p">,</span>
+    <span class="n">lr</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Learning rate&#39;</span><span class="p">),</span>
+    <span class="n">steps</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Steps&#39;</span><span class="p">),</span>
+    <span class="n">noise</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;SGD noise&#39;</span><span class="p">),</span>
+    <span class="n">start1</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">5.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;θ₁ start&#39;</span><span class="p">),</span>
+    <span class="n">start2</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">5.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;θ₂ start&#39;</span><span class="p">),</span>
+    <span class="n">elev</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Elevation&#39;</span><span class="p">),</span>
+    <span class="n">azim</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mi">180</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Azimuth&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6fb8ae3ebe1b45d3881a5b62973d2832", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_descent(lr=0.1, steps=30, noise=0.5, start1=5.0, start2=5.0, elev=45, azim=135)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="further-study">
+<h2>Further study<a class="headerlink" href="#further-study" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Study adaptive optimizers (<strong>AdaGrad, RMSProp, Adam</strong>)</p></li>
+<li><p><em>Dive into neural networks</em></p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,6 +775,41 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic Terminology</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-implementation">Gradient Descent Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-function-and-its-gradient">1. Quadratic Function and Its Gradient</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Gradient Descent Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-descent-on-the-quadratic">Visualizing descent on the Quadratic</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-gradient-descent">Types of Gradient Descent</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-gradient-descent">Batch Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">Stochastic Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-gradient-descent">Mini-batch Gradient Descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sgd-vs-bgd-2d-quadratic-function">SGD vs BGD: 2D Quadratic Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-study">Further study</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
