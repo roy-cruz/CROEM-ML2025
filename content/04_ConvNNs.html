@@ -384,7 +384,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution">What is a <strong>Convolution</strong>?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-1d-dircrete-convolution">Simple Example: <strong>1D dircrete Convolution</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-1d-discrete-convolution">Simple Example: <strong>1D discrete Convolution</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-cnns">Convolutional Neural Networks (CNNs)</a></li>
@@ -424,8 +424,8 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[(f * h)[i,j] = \sum_{m}\sum_{n} f[m,n] \cdot h(i - m,j-n)\]</div>
 <hr class="docutils" />
-<section id="simple-example-1d-dircrete-convolution">
-<h3>Simple Example: <strong>1D dircrete Convolution</strong><a class="headerlink" href="#simple-example-1d-dircrete-convolution" title="Link to this heading">#</a></h3>
+<section id="simple-example-1d-discrete-convolution">
+<h3>Simple Example: <strong>1D discrete Convolution</strong><a class="headerlink" href="#simple-example-1d-discrete-convolution" title="Link to this heading">#</a></h3>
 <p>Let’s say you have a signal 𝑓 and a filter ℎ:</p>
 <div class="math notranslate nohighlight">
 \[ f = [3,2,1,0]\]</div>
@@ -607,7 +607,7 @@ In this manner, every member of the output layer is affected by every member of 
 <span class="n">model</span> <span class="o">=</span> <span class="n">SimpleCNN</span><span class="p">()</span>
 <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-
+<span class="n">Max_epoch</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">):</span> <span class="c1"># train Loader needs to be defined</span>
@@ -877,7 +877,7 @@ Training finished.
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-convolution">What is a <strong>Convolution</strong>?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-1d-dircrete-convolution">Simple Example: <strong>1D dircrete Convolution</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-1d-discrete-convolution">Simple Example: <strong>1D discrete Convolution</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-cnns">Convolutional Neural Networks (CNNs)</a></li>
