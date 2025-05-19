@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -504,14 +504,17 @@ each with a varied strength of connection. <br></p></li>
 <section id="implementation">
 <h3>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
 <p>There are several popular python packages for implementing neural networks like <strong>Tensorflow</strong>, <strong>Pytorch</strong> etc. In this course we will only focus on <strong>Pytorch</strong>. In all the packages, the core ideas remains the same</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p><strong>Feed-Forward</strong></p>
 <ul class="simple">
-<li><p>For each layer the input <span class="math notranslate nohighlight">\(a\)</span> (<span class="math notranslate nohighlight">\(a=x\)</span> for the first layer) is multiplied by weights <span class="math notranslate nohighlight">\(W\)</span>, added to biases <span class="math notranslate nohighlight">\(b\)</span>, then passed through as activation function <span class="math notranslate nohighlight">\(f\)</span>. Therefore, for the <span class="math notranslate nohighlight">\(l^{th}\)</span> layer and <span class="math notranslate nohighlight">\(i^{th}\)</span> neuron we have the output
-$<span class="math notranslate nohighlight">\(
-z^{l}_i = \sum_{j=1}^{h_l} f(w^{(l,l-1)}_{ij}z^{l-1}_j+b_i^{l})
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>h_l<span class="math notranslate nohighlight">\( is the number of hidden nodes at the \)</span>l^{th}<span class="math notranslate nohighlight">\( layer. Note that here we are using \)</span>h_0=len(x)$.</p></li>
+<li><p>For each layer the input <span class="math notranslate nohighlight">\(a\)</span> (<span class="math notranslate nohighlight">\(a=x\)</span> for the first layer) is multiplied by weights <span class="math notranslate nohighlight">\(W\)</span>, added to biases <span class="math notranslate nohighlight">\(b\)</span>, then passed through as activation function <span class="math notranslate nohighlight">\(f\)</span>. Therefore, for the <span class="math notranslate nohighlight">\(l^{th}\)</span> layer and <span class="math notranslate nohighlight">\(i^{th}\)</span> neuron we have the output</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+    z^{l}_i = \sum_{j=1}^{h_l} f(w^{(l,l-1)}_{ij}z^{l-1}_j+b_{i}^{l})
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(h_l\)</span> is the number of hidden nodes at the <span class="math notranslate nohighlight">\(l^{th}\)</span> layer. Note that here we are using <span class="math notranslate nohighlight">\(h_0=len(x)\)</span>.</p>
+<ul class="simple">
 <li><p>Note that here the network/model parameters <span class="math notranslate nohighlight">\(\theta\)</span> includes all weights and biases as a whole.</p></li>
 <li><p>Output propagates from input layer through hidden layers to the output.</p></li>
 </ul>
