@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Machine Learning Fundamentals: Foundational Considerations &#8212; My sample book</title>
+    <title>Machine Learning Fundamentals: Core Concepts Through Decision Trees &#8212; My sample book</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -70,7 +70,7 @@ window.addEventListener("load", () => mermaid.run());
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/01_Basics-DecisionTrees';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Basic Terminology" href="02_Basics-Gradient.html" />
+    <link rel="next" title="Machine Learning Fundamentals: Gradient Descent" href="02_Basics-Gradient.html" />
     <link rel="prev" title="Introduction" href="00_Intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -190,12 +190,11 @@ window.addEventListener("load", () => mermaid.run());
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Fundamentals: Foundational Considerations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Basic Terminology</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Fundamentals: Core Concepts Through Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Machine Learning Fundamentals: Gradient Descent</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_Finale.html">What’s Next?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Final.html">What’s Next?</a></li>
 </ul>
 
     </div>
@@ -381,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Machine Learning Fundamentals: Foundational Considerations</h1>
+    <h1>Machine Learning Fundamentals: Core Concepts Through Decision Trees</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,13 +396,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-datasets">Building datasets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-validating-a-classification-tree">Building, training and validating a classification tree</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-tree-learn">How does a tree “learn”?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-classification-tree">Building a classification tree</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-our-tree">Testing our tree</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-our-tree">Testing our tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-tree-learn">How does a tree “learn”?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-and-underfitting">Overfitting and underfitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest">From trees to forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest-variance-vs-bias">From trees to forest: variance vs. bias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
             </nav>
@@ -416,8 +415,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-fundamentals-foundational-considerations">
-<h1>Machine Learning Fundamentals: Foundational Considerations<a class="headerlink" href="#machine-learning-fundamentals-foundational-considerations" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-fundamentals-core-concepts-through-decision-trees">
+<h1>Machine Learning Fundamentals: Core Concepts Through Decision Trees<a class="headerlink" href="#machine-learning-fundamentals-core-concepts-through-decision-trees" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/01_Basics-DecisionTrees.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <section id="concept">
 <h2>Concept<a class="headerlink" href="#concept" title="Link to this heading">#</a></h2>
@@ -814,9 +813,11 @@ document.write(`
 <span class="c1"># 2 = mean smoothness</span>
 <span class="c1"># 3 = mean symmetry</span>
 
-<span class="n">features_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># Change indices here!</span>
+<span class="n">feature_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># Change indices here!</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">features_indices</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">feature_names</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">][</span><span class="n">feature_indices</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">feature_indices</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
 </div>
@@ -883,8 +884,8 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="building-training-and-validating-a-classification-tree">
-<h2>Building, training and validating a classification tree<a class="headerlink" href="#building-training-and-validating-a-classification-tree" title="Link to this heading">#</a></h2>
+<section id="building-a-classification-tree">
+<h2>Building a classification tree<a class="headerlink" href="#building-a-classification-tree" title="Link to this heading">#</a></h2>
 <p>In order to build a decision tree model, we will be using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> again, which includes pre-defined tools to build such a model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -908,7 +909,7 @@ document.write(`
 <p>Here, we use two very important arguments: <code class="docutils literal notranslate"><span class="pre">max_depth</span></code> and <code class="docutils literal notranslate"><span class="pre">criterion</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">max_depth</span></code>: The maximum amount of “layers” the tree can have. Deeper trees tend to be better at classification, but that comes with its own drawbacks as we will see later on.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">criterion</span></code>: Dictates the function used to measure the quality or purity of a split during the training process. The available functions are <code class="docutils literal notranslate"><span class="pre">gini</span></code>, <code class="docutils literal notranslate"><span class="pre">entropy</span></code> and <code class="docutils literal notranslate"><span class="pre">log_loss</span></code>. We will discuss these later on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">criterion</span></code>: Dictates the function used to measure the quality or purity of a split during the training process. The available functions are <code class="docutils literal notranslate"><span class="pre">gini</span></code>, <code class="docutils literal notranslate"><span class="pre">entropy</span></code> and <code class="docutils literal notranslate"><span class="pre">log_loss</span></code>. We will only be using <code class="docutils literal notranslate"><span class="pre">gini</span></code> here. More on this metric later.</p></li>
 </ul>
 <p>Now that the tree has been created, we can go ahead and train it with the data we separated specifically for this purpose. Note that we will be discussing some of the details of what this “training” consists of later. For now, just take it as the model “learning” how to separate the data into the different classes from the examples you are providing it in the training dataset.</p>
 <div class="cell docutils container">
@@ -928,7 +929,7 @@ document.write(`
 <span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
     <span class="n">clf</span><span class="p">,</span> 
     <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">feature_names</span><span class="p">,</span>
     <span class="n">class_names</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -936,7 +937,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c6c8604f2f71c773dccef07348770168cd9e11a76942ca5e18531a715445159f.png" src="../_images/c6c8604f2f71c773dccef07348770168cd9e11a76942ca5e18531a715445159f.png" />
+<img alt="../_images/82b2c851b72eef98f8d597eb5a0725e4021a9a451d6f905584d901a6a2741297.png" src="../_images/82b2c851b72eef98f8d597eb5a0725e4021a9a451d6f905584d901a6a2741297.png" />
 </div>
 </div>
 <p>Now we want to see how our model performs. To do this, we can use several common metrics for quantifying the performance of classification models. These metrics help us understand how well our model is making predictions, and each one gives us a different perspective on its strengths and weaknesses.</p>
@@ -1005,6 +1006,7 @@ document.write(`
 <span class="c1"># Compute metrics for training and validation sets</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Set Metrics:&quot;</span><span class="p">)</span>
 <span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Validation Set Metrics:&quot;</span><span class="p">)</span>
 <span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
 </pre></div>
@@ -1031,7 +1033,7 @@ F1 Score: 0.7552
 <p>(Unless you’re curious, don’t worry too much about how the following snippet of code plots the data for now.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_decision_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">class_names</span><span class="p">,</span> <span class="n">ftrs_idx</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_decision_boundaries</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">class_names</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to plot decision boundaries of a classifier.&quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -1046,18 +1048,21 @@ F1 Score: 0.7552
         <span class="p">)</span>
 
     <span class="n">DecisionBoundaryDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span>
-        <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span>
+        <span class="n">classifier</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span>
         <span class="n">response_method</span><span class="o">=</span><span class="s2">&quot;predict&quot;</span><span class="p">,</span>
-        <span class="n">xlabel</span><span class="o">=</span><span class="n">feature_names</span><span class="p">[</span><span class="n">ftrs_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
-        <span class="n">ylabel</span><span class="o">=</span><span class="n">feature_names</span><span class="p">[</span><span class="n">ftrs_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="n">feature_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="n">feature_names</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span><span class="p">,</span>
         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">grid_resolution</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Classes&quot;</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature_names</span><span class="p">[</span><span class="n">ftrs_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">feature_names</span><span class="p">[</span><span class="n">ftrs_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">feature_names</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Decision boundaries and data&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -1066,17 +1071,46 @@ F1 Score: 0.7552
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span> <span class="n">features_indices</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0a1f17c4a0ed50dad934a0d8ab1770cc0f89ace09a733714d9e200e3a2ec3bd8.png" src="../_images/0a1f17c4a0ed50dad934a0d8ab1770cc0f89ace09a733714d9e200e3a2ec3bd8.png" />
+<img alt="../_images/4ff71ff5c95b502b048a6ac81964c310aeef4e3d9e74673ecc38f485110a39c6.png" src="../_images/4ff71ff5c95b502b048a6ac81964c310aeef4e3d9e74673ecc38f485110a39c6.png" />
 </div>
 </div>
 <p>We can see that the series of splits in the decision tree create an interesting decision boundary made up of straight segments. This plot highlights the importance of selecting features that clearly separate the classes: the greater the separation between samples of different classes, the more accurately the model can classify them. Well-chosen features lead to simpler, more effective decision boundaries and better model performance!</p>
+<section id="testing-our-tree">
+<h3>Testing our tree<a class="headerlink" href="#testing-our-tree" title="Link to this heading">#</a></h3>
+<p>Now that we have a reasonably performing model, lets do a final test on the testing data that was left untouched so far so as to not bias ourselves.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run model on test set</span>
+<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Compute metrics for training and validation sets</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing Set Metrics:&quot;</span><span class="p">)</span>
+<span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">)</span>
+<span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Testing Set Metrics:
+Accuracy: 0.7018
+Precision: 0.8364
+Recall: 0.6479
+F1 Score: 0.7302
+</pre></div>
+</div>
+<img alt="../_images/fdf07adc10a153155e885fb24f8e930340a0b535fd2aae0162f7ed3cb9ea38f2.png" src="../_images/fdf07adc10a153155e885fb24f8e930340a0b535fd2aae0162f7ed3cb9ea38f2.png" />
+</div>
+</div>
+<p>If the model we made is made is any good, it should be able to achieve similar performace in the testing dataset as the one we observed in the validation dataset, which just means that it generalizes well. But what if the model doesn’t generalize well at all? How would that look like?</p>
+</section>
+</section>
 <section id="how-does-a-tree-learn">
-<h3>How does a tree “learn”?<a class="headerlink" href="#how-does-a-tree-learn" title="Link to this heading">#</a></h3>
+<h2>How does a tree “learn”?<a class="headerlink" href="#how-does-a-tree-learn" title="Link to this heading">#</a></h2>
 <p>Ask yourself this: when we were training the tree, how did it know what cut to make to which feature in each decision node in order to get the best results? While at first it might seem somewhat mysterious when you think about it, how the model actually trains is relatively straight forward, and it comes down to a common theme in ML: the minimization/maximization of some metric guiding an iterative training process. Let’s see how a tree is trained to get a understanding.</p>
 <p>Suppose you are training on just these 4 data points.</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -1164,35 +1198,6 @@ F1 Score: 0.7552
     C8 --&gt; D
     </pre><p>For each new subsequent node, this is repeated until the node is pure, containing only samples of a single class, or until the maximum number of specified layers is reached.</p>
 </section>
-</section>
-<section id="testing-our-tree">
-<h2>Testing our tree<a class="headerlink" href="#testing-our-tree" title="Link to this heading">#</a></h2>
-<p>Now that we have a reasonably performing model, lets do a final test on the testing data that was left untouched so far so as to not bias ourselves.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run model on test set</span>
-<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-
-<span class="c1"># Compute metrics for training and validation sets</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing Set Metrics:&quot;</span><span class="p">)</span>
-<span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">)</span>
-<span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span> <span class="n">features_indices</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Testing Set Metrics:
-Accuracy: 0.7018
-Precision: 0.8364
-Recall: 0.6479
-F1 Score: 0.7302
-</pre></div>
-</div>
-<img alt="../_images/21343c1cbb932f10a4a65a640dd0380035398eb8538ffbb6e07e84d4acdcf727.png" src="../_images/21343c1cbb932f10a4a65a640dd0380035398eb8538ffbb6e07e84d4acdcf727.png" />
-</div>
-</div>
-<p>If the model we made is made is any good, it should be able to achieve similar performace in the testing dataset as the one we observed in the validation dataset, which just means that it generalizes well. But what if the model doesn’t generalize well at all? How would that look like?</p>
-</section>
 <section id="overfitting-and-underfitting">
 <h2>Overfitting and underfitting<a class="headerlink" href="#overfitting-and-underfitting" title="Link to this heading">#</a></h2>
 <p>You might ask yourself: “If we have can change the maximum amount of layers in a decision tree, why not just put the maximum? Then we can get maximum performance!” While this line of though may seem intuitive at first, going along with it can introduce a new problem: overfitting. Overfitting occurs when a model learns the training data too well, including its noise and outliers, resulting in poor generalization to new, unseen data. This happens when we give the model too many degrees of freedom, which allows it to learn the noise and variation in the data, instead of just capturing the general trends.</p>
@@ -1266,12 +1271,12 @@ F1 Score: 0.7211
 <p>In addition, when looking at the decision boundaries, we can see that it has a very weird shape. This is because, instead of only capturing the general behavior of the data, it captures noise and statistical variability in it instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf_overfit</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span> <span class="n">features_indices</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">clf_overfit</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d3b54b59ebbfd1ca6d9a02c7b3a54c9a2fb71cb99ca071bb98e709965531e379.png" src="../_images/d3b54b59ebbfd1ca6d9a02c7b3a54c9a2fb71cb99ca071bb98e709965531e379.png" />
+<img alt="../_images/78f5a56200c967aa88c37d0a2923d3bef346eec7492cb627ca68d2b2757bdba4.png" src="../_images/78f5a56200c967aa88c37d0a2923d3bef346eec7492cb627ca68d2b2757bdba4.png" />
 </div>
 </div>
 <p>What about if we only allowing very few layers? In this case, we may end up with a model that is underfitted. In general, this happens when we give the model too few degrees of freedom that it can use to try to capture the general trend of the data. For such a case, we could have something like the following.</p>
@@ -1337,17 +1342,18 @@ F1 Score: 0.6923
 <p>And, if we look at the decision boundary, we realize that its just a line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">clf_underfit</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span> <span class="n">features_indices</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">clf_underfit</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a741dcd0d31bb225708ab0c2fd1b30f4162187e2e0c6a09657c6f36f4c5f2961.png" src="../_images/a741dcd0d31bb225708ab0c2fd1b30f4162187e2e0c6a09657c6f36f4c5f2961.png" />
+<img alt="../_images/130b8f3bdc5583cadda47ff272644e679ea6a7e52b923616ddf28489ccefceb0.png" src="../_images/130b8f3bdc5583cadda47ff272644e679ea6a7e52b923616ddf28489ccefceb0.png" />
 </div>
 </div>
 </section>
-<section id="from-trees-to-forest">
-<h2>From trees to forest<a class="headerlink" href="#from-trees-to-forest" title="Link to this heading">#</a></h2>
+<section id="from-trees-to-forest-variance-vs-bias">
+<h2>From trees to forest: variance vs. bias<a class="headerlink" href="#from-trees-to-forest-variance-vs-bias" title="Link to this heading">#</a></h2>
+<p>An issue that is common with classification trees is that they can easily overfit to noise in the training data, especially if they are deep.</p>
 </section>
 <section id="practice">
 <h2>Practice<a class="headerlink" href="#practice" title="Link to this heading">#</a></h2>
@@ -1435,7 +1441,7 @@ F1 Score: 0.6923
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Basic Terminology</p>
+        <p class="prev-next-title">Machine Learning Fundamentals: Gradient Descent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1461,13 +1467,13 @@ F1 Score: 0.6923
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-datasets">Building datasets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-training-and-validating-a-classification-tree">Building, training and validating a classification tree</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-tree-learn">How does a tree “learn”?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-classification-tree">Building a classification tree</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-our-tree">Testing our tree</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-our-tree">Testing our tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-tree-learn">How does a tree “learn”?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-and-underfitting">Overfitting and underfitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest">From trees to forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest-variance-vs-bias">From trees to forest: variance vs. bias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
   </nav></div>

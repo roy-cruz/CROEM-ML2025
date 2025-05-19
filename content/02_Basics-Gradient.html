@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Basic Terminology &#8212; My sample book</title>
+    <title>Machine Learning Fundamentals: Gradient Descent &#8212; My sample book</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Neural Networks" href="03_NeuralNetworks.html" />
-    <link rel="prev" title="Machine Learning Fundamentals: Foundational Considerations" href="01_Basics-DecisionTrees.html" />
+    <link rel="prev" title="Machine Learning Fundamentals: Core Concepts Through Decision Trees" href="01_Basics-DecisionTrees.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,12 +182,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Fundamentals: Foundational Considerations</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Terminology</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Fundamentals: Core Concepts Through Decision Trees</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Fundamentals: Gradient Descent</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_Finale.html">What’s Next?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_Final.html">What’s Next?</a></li>
 </ul>
 
     </div>
@@ -373,7 +372,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Basic Terminology</h1>
+    <h1>Machine Learning Fundamentals: Gradient Descent</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,8 +382,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic Terminology</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-terminology">Basic Terminology</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-implementation">Gradient Descent Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-function-and-its-gradient">1. Quadratic Function and Its Gradient</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Gradient Descent Implementation</a></li>
@@ -402,9 +401,6 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-study">Further study</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -415,9 +411,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/02_Basics-Gradient.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<section class="tex2jax_ignore mathjax_ignore" id="basic-terminology">
-<h1>Basic Terminology<a class="headerlink" href="#basic-terminology" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-fundamentals-gradient-descent">
+<h1>Machine Learning Fundamentals: Gradient Descent<a class="headerlink" href="#machine-learning-fundamentals-gradient-descent" title="Link to this heading">#</a></h1>
+<section id="basic-terminology">
+<h2>Basic Terminology<a class="headerlink" href="#basic-terminology" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/02_Basics-Gradient.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <p>You have already seen the first example of machine learning as decision trees. Now its time for ML with neural networks. Before going into the details of it, let us first understand the idea of “gradient descent”. Let us first understand three basic terminology of ML</p>
 <blockquote>
 <div><ul class="simple">
@@ -428,8 +426,8 @@ It determines how well the the model <span class="math notranslate nohighlight">
 </ul>
 </div></blockquote>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="gradient-descent">
-<h1>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h1>
+<section id="gradient-descent">
+<h2>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Link to this heading">#</a></h2>
 <p>The method of <strong>Gradient Descent</strong> is a fundamental optimization algorithm used in machine learning. Students can modify code cells and visualize how learning rate, number of iterations, and function choice affect convergence.</p>
 <h3> Why? </h3>
 For most applications of machine learning, the final goal boils down to optimising the *loss function* given a *dataset* and a *model*.
@@ -459,6 +457,7 @@ In the formula above</p>
 <li><p><span class="math notranslate nohighlight">\(\theta_{t}\)</span> denotes the value of the internal parameters in the current step and <span class="math notranslate nohighlight">\(\theta_{t+1}\)</span> tells you what should be the value of the internal parameters on the next step if one follows the gradient descent method.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\nabla_\theta(\mathcal{L}(\theta))\)</span> symbolises the gradient of the loss function with respect to various internal parameters.</p></li>
 </ul>
+</section>
 <section id="gradient-descent-implementation">
 <h2>Gradient Descent Implementation<a class="headerlink" href="#gradient-descent-implementation" title="Link to this heading">#</a></h2>
 <p>At first let us introduce some packages</p>
@@ -757,7 +756,7 @@ In the formula above</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Machine Learning Fundamentals: Foundational Considerations</p>
+        <p class="prev-next-title">Machine Learning Fundamentals: Core Concepts Through Decision Trees</p>
       </div>
     </a>
     <a class="right-next"
@@ -785,8 +784,8 @@ In the formula above</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic Terminology</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-terminology">Basic Terminology</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">Gradient Descent</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-implementation">Gradient Descent Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quadratic-function-and-its-gradient">1. Quadratic Function and Its Gradient</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Gradient Descent Implementation</a></li>
@@ -804,9 +803,6 @@ In the formula above</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-study">Further study</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
