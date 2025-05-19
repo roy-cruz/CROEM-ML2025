@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Neural Networks &#8212; My sample book</title>
+    <title>The Imitation Game &#8212; My sample book</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/03_NeuralNetworks';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Convolutional Neural Networks" href="04_ConvNNs.html" />
-    <link rel="prev" title="Machine Learning Fundamentals: Gradient Descent" href="02_Basics-Gradient.html" />
+    <link rel="prev" title="Gradient Descent" href="02_Basics-Gradient.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,8 +183,9 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="01_Basics-DecisionTrees.html">Machine Learning Fundamentals: Core Concepts Through Decision Trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Machine Learning Fundamentals: Gradient Descent</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Gradient Descent</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Imitation Game</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_Final.html">What’s Next?</a></li>
 </ul>
@@ -357,7 +360,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -368,11 +373,46 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Neural Networks</h1>
+    <h1>The Imitation Game</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">The Imitation Game</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#aritificial-intelligence-and-machine-learning">Aritificial Intelligence and Machine Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning">Machine Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-brains-are-amazing-can-we-mimic-that">Human Brains are amazing can we mimic that??</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pytorch">Using PyTorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-model">Defining the Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#over-fitting-vs-under-fitting">Over-fitting vs Under-fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrating-under-fitting">Illustrating Under-fitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrating-over-fitting">Illustrating Over-fitting</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-early-stopping">Adding Early Stopping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-pi">Finding <span class="math notranslate nohighlight">\(\pi\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classic-approach">The Classic approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine-learning-approach">The machine Learning approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -382,9 +422,701 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="neural-networks">
-<h1>Neural Networks<a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com/github/roy-cruz/CROEM-ML2025/blob/master/croem-ml2025/content/03_NeuralNetworks.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-imitation-game">
+<h1>The Imitation Game<a class="headerlink" href="#the-imitation-game" title="Link to this heading">#</a></h1>
+<p>The imitation game refers to a test for assesing <em>machine intelligence</em>, proposed by the British mathematician and computer scientist Alan Turing in 1950.</p>
+<blockquote>
+<div><p>The test is designed to asses a machine’s ability to exhibit intelligent behaviour equivalent to, or indistinguishable from that of a human.<br></p>
+</div></blockquote>
+<center><img src="images/imitation.png" width="300">
+<p>Try this game with ChatGPT/DeepSeek.</center></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="aritificial-intelligence-and-machine-learning">
+<h1>Aritificial Intelligence and Machine Learning<a class="headerlink" href="#aritificial-intelligence-and-machine-learning" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Aritificial intelligence leverages computers and machines to mimic the problem solving and decision making capabilities of the human mind. <br>
+<img alt="alt text" src="../_images/AI_vs_hum.png" />
+<br></p></li>
+</ul>
+<section id="machine-learning">
+<h2>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Machine learning is more dependent on human intervention to learn. Human experts determines the hierarchy of features to understand the difference between data inputs, usually requiring more structured data to learn.</p></li>
+<li><p><strong>Deep learning</strong> in general does not require that much structuring of data and extract features without much of a human intervention. <br></p></li>
+</ul>
+<br>
+<p><img alt="alt text" src="../_images/machine_venn.png" /></p>
+<ul class="simple">
+<li><p>In <strong>classical</strong> programming, we the developers need to understand the aspect of the problem we are trying to solve, and to know exactly what all the rules are to make it to the solution</p></li>
+</ul>
+<blockquote>
+<div><p><span style="color:red"><strong>Intuitively</strong>: <strong>Machine Learning</strong> = <strong>Learning from example</strong></span>.</p>
+</div></blockquote>
+<br>
+<p>Example: <span style="color:blue">Distinguish Squares and Circles</span></p>
+<p><img alt="alt text" src="content/images/square_circle.png" /></p>
+<br><ul class="simple">
+<li><p>The standard coding algorithms that we use are constrained by statements like <em>if</em>, <em>do-while</em>, <em>for</em> etc. Even a very intelligent coder can only cover a finite number of scenarios through these.</p></li>
+</ul>
+<p>Example: <span style="color:blue"> Self driving cars </span></p>
+<p><img alt="alt text" src="content/images/self_drive.png" /></p>
+<p><span style="color:red"> <strong>What if:</strong> There is a human on a wet road and the signal in green?? </span></p>
+<blockquote>
+<div><p><span style="color:blue"> <strong>Since our real world has infinite possibilities, explicit codings are not faithful or even practical</strong>. </span></p>
+</div></blockquote>
+<section id="human-brains-are-amazing-can-we-mimic-that">
+<h3>Human Brains are amazing can we mimic that??<a class="headerlink" href="#human-brains-are-amazing-can-we-mimic-that" title="Link to this heading">#</a></h3>
+<p><img alt="alt text" src="../_images/brain_compu.png" />
+<br></p>
+<ul class="simple">
+<li><p>An individual neuron can either fire or not depending on the level of input stimuli. So mathematically
+one can think of neurons as some function which is zero below a minimum value of input.<br></p></li>
+</ul>
+<p><img alt="alt text" src="../_images/neuron.png" /></p>
+<ul class="simple">
+<li><p>Output of a single neuron depends on the output of the neurons that are connected with it,
+each with a varied strength of connection. <br></p></li>
+</ul>
+<p><img alt="alt text" src="../_images/neurons.png" /></p>
+</section>
+</section>
+<section id="neural-networks">
+<h2>Neural Networks<a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For each neuron, we define three properties</p>
+<ol class="arabic simple">
+<li><p><strong>Weight:</strong> between each two connected neurons weight defines what is the importance of the previous neuron to the next one.</p></li>
+<li><p><strong>Bias:</strong> Offset or bias is a intrinsic property/parameter of each of the neuron.</p></li>
+<li><p><strong>Activation function:</strong> Input of each neuron is defined as the weighted sum <span class="math notranslate nohighlight">\(z=\sum_j w_j y_j +b\)</span>. If the activation function is <span class="math notranslate nohighlight">\(f\)</span> for the neuron then output would be <span class="math notranslate nohighlight">\(f(z)\)</span>.</p></li>
+</ol>
+</li>
+</ul>
+<center><img src="images/neuron_prop.png" width="500"></center>
+<ul class="simple">
+<li><p>Connecting different artificial neurons like this together generates a neural network</p></li>
+</ul>
+<center><img src="images/nnetwork.png" width="500"></center>
+<section id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
+<p>There are several popular python packages for implementing neural networks like <strong>Tensorflow</strong>, <strong>Pytorch</strong> etc. In this course we will only focus on <strong>Pytorch</strong>. In all the packages, the core ideas remains the same</p>
+<ol class="arabic simple">
+<li><p><strong>Feed-Forward</strong></p>
+<ul class="simple">
+<li><p>For each layer the input <span class="math notranslate nohighlight">\(a\)</span> (<span class="math notranslate nohighlight">\(a=x\)</span> for the first layer) is multiplied by weights <span class="math notranslate nohighlight">\(W\)</span>, added to biases <span class="math notranslate nohighlight">\(b\)</span>, then passed through as activation function <span class="math notranslate nohighlight">\(f\)</span>. Therefore, for the <span class="math notranslate nohighlight">\(l^{th}\)</span> layer and <span class="math notranslate nohighlight">\(i^{th}\)</span> neuron we have the output
+$<span class="math notranslate nohighlight">\(
+z^{l}_i = \sum_{j=1}^{h_l} f(w^{(l,l-1)}_{ij}z^{l-1}_j+b_i^{l})
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>h_l<span class="math notranslate nohighlight">\( is the number of hidden nodes at the \)</span>l^{th}<span class="math notranslate nohighlight">\( layer. Note that here we are using \)</span>h_0=len(x)$.</p></li>
+<li><p>Note that here the network/model parameters <span class="math notranslate nohighlight">\(\theta\)</span> includes all weights and biases as a whole.</p></li>
+<li><p>Output propagates from input layer through hidden layers to the output.</p></li>
+</ul>
+</li>
+<li><p><strong>Back-Propagation</strong></p>
+<ul class="simple">
+<li><p>Compute loss <span class="math notranslate nohighlight">\(\mathcal{L}(\hat{y},y;\theta)\)</span> where <span class="math notranslate nohighlight">\(\hat{y}\)</span> is the network output and <span class="math notranslate nohighlight">\(y\)</span> is the true output.</p></li>
+<li><p>Use the chain rule to compute <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial W_{ij}^{(l,l-1)}}\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial b_i^{l}} for each layer \)</span>l$, propagating the error backward.</p></li>
+</ul>
+</li>
+<li><p><strong>Gradient Descent</strong></p>
+<ul class="simple">
+<li><p>Update each parameter <span class="math notranslate nohighlight">\(\theta \in {w,b}\)</span> by
+$<span class="math notranslate nohighlight">\(
+\theta \leftarrow \theta - \alpha \frac{\partial \mathcal{L}}{\partial \theta}
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\alpha$ is the learning rate.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="using-pytorch">
+<h3>Using PyTorch<a class="headerlink" href="#using-pytorch" title="Link to this heading">#</a></h3>
+<p>We will now learn implementing the above steps in PyTorch by fitting a simple dataset where
+$<span class="math notranslate nohighlight">\(
+y= 0.1 x^3 - 0.5 x^2 + 2 \sin(3x),\quad x \in [-2,2]
+\)</span>$
+First we plot the “ground truth” curve we want our network to learn. No noise—this is a deterministic regression task.
+Then we convert our <em>NumPy</em> arrays into PyTorch tensors and wrap them in a <strong>DataLoader</strong> so we can batch them during training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Generate 200 points in [-2,2]</span>
+<span class="n">X_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Define f(x) = 0.1 x^3 - 0.5 x^2 + 2 sin(3x)</span>
+<span class="n">Y_np</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">X_np</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">X_np</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">X_np</span><span class="p">)</span>
+
+<span class="c1"># Plot the true function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">Y_np</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$0.1x^3 -0.5x^2 +2\sin(3x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Target Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/81a12e6b937f45a22922c2bc388cb86ef6b2a9601ea869142efee776ef17d81c.png" src="../_images/81a12e6b937f45a22922c2bc388cb86ef6b2a9601ea869142efee776ef17d81c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to PyTorch tensors &amp; DataLoader</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">TensorDataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+
+<span class="c1"># Convert to float32 tensors</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">X_np</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>  <span class="c1"># shape (200,1)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Y_np</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>  <span class="c1"># shape (200,1)</span>
+
+<span class="c1"># Create a 80/20 train/validation split</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">val_size</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+<span class="n">train_set</span><span class="p">,</span> <span class="n">val_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">random_split</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span><span class="o">-</span><span class="n">val_size</span><span class="p">,</span> <span class="n">val_size</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">val_loader</span>   <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_set</span><span class="p">,</span>   <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="defining-the-model">
+<h4>Defining the Model<a class="headerlink" href="#defining-the-model" title="Link to this heading">#</a></h4>
+<p>We define a simple feed‐forward network SimpleNet with one hidden layer of size <span class="math notranslate nohighlight">\(32\)</span> and <em>ReLU</em> activation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We must choose a learning rate, decide how many epochs to train, and pick an optimizer. We’ll use plain stochastic gradient descent (SGD) here, but you can swap in Adam or others.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyper-parameters</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1e-2</span>
+<span class="n">num_epochs</span>    <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For regression, we commonly use mean squared error (MSE). We instantiate nn.MSELoss(). For parameter updates, we pass our model’s parameters and the learning rate to an optimizer, here <strong>torch.optim.SGD</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span>     <span class="o">=</span> <span class="n">SimpleNet</span><span class="p">()</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each epoch, we iterate over mini-batches from our DataLoader. For each batch we:</p>
+<ol class="arabic simple">
+<li><p>Zero out any stored gradients.</p></li>
+<li><p>Run a forward pass to compute predictions.</p></li>
+<li><p>Compute loss against true y.</p></li>
+<li><p>Call loss.backward() to back-propagate gradients.</p></li>
+<li><p>Call optimizer.step() to update weights.</p></li>
+</ol>
+<p>We’ll also track and plot training vs. validation loss for diagnosing over-/under-fitting. To illustrate everything together, we create a helper train_and_plot that takes any model instance, trains it for a given number of epochs and learning rate, then plots:</p>
+<ol class="arabic simple">
+<li><p>Training loss curve</p></li>
+<li><p>Final prediction curve vs noisy data and true <span class="math notranslate nohighlight">\(\sin(x)\)</span>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train_and_evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">early_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Trains `model` for up to `epochs` with LR `lr`.</span>
+<span class="sd">    If `early_stop=True`, monitors validation loss and stops after `patience` non-improving epochs.</span>
+<span class="sd">    Always reloads the best model before plotting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+
+    <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">best_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+    <span class="n">best_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">wait</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># — Training —</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">running_train</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">),</span> <span class="n">yb</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="n">running_train</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">xb</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_train</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">))</span>
+
+        <span class="c1"># — Validation —</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="n">running_val</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+                <span class="n">running_val</span> <span class="o">+=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">),</span> <span class="n">yb</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">xb</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">val_loss</span> <span class="o">=</span> <span class="n">running_val</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">val_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+
+        <span class="c1"># — Check for improvement —</span>
+        <span class="k">if</span> <span class="n">val_loss</span> <span class="o">&lt;</span> <span class="n">best_val</span><span class="p">:</span>
+            <span class="n">best_val</span> <span class="o">=</span> <span class="n">val_loss</span>
+            <span class="n">best_epoch</span> <span class="o">=</span> <span class="n">epoch</span>
+            <span class="n">wait</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s1">&#39;best_model.pt&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wait</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">early_stop</span> <span class="ow">and</span> <span class="n">wait</span> <span class="o">&gt;=</span> <span class="n">patience</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;→ Early stopping at epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2"> (best at </span><span class="si">{</span><span class="n">best_epoch</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+    <span class="c1"># Reload the best‐seen weights</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;best_model.pt&#39;</span><span class="p">))</span>
+
+    <span class="c1"># — Plot Loss Curves —</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_losses</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Loss&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_losses</span><span class="p">,</span>   <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Val   Loss&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">early_stop</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">best_epoch</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best Epoch </span><span class="si">{</span><span class="n">best_epoch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Loss Curves&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;MSE&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># — Plot Final Fit —</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">Y_np</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True samples&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model prediction&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Final Model Fit&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1">#return best_epoch</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="over-fitting-vs-under-fitting">
+<h4>Over-fitting vs Under-fitting<a class="headerlink" href="#over-fitting-vs-under-fitting" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Under-fitting</strong> occurs when both training and validation error remain high– <em>your model is too simple</em>.</p></li>
+<li><p><strong>Over-fitting</strong> occurs when training error is low but validation error rises —- <em>your model is too complex or trained too long</em>.</p></li>
+</ul>
+<section id="illustrating-under-fitting">
+<h5>Illustrating Under-fitting<a class="headerlink" href="#illustrating-under-fitting" title="Link to this heading">#</a></h5>
+<p>Train with only 5 epochs—the network hasn’t had enough time to capture the sine pattern.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_under</span> <span class="o">=</span> <span class="n">SimpleNet</span><span class="p">()</span>
+<span class="n">train_and_evaluate</span><span class="p">(</span><span class="n">model_under</span><span class="p">,</span>
+                   <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>      <span class="c1"># very few epochs</span>
+                   <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+                   <span class="n">early_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7444da06cb6493061b7dc919df00c4b1b970a01cc294c34a24a8f3e71e883836.png" src="../_images/7444da06cb6493061b7dc919df00c4b1b970a01cc294c34a24a8f3e71e883836.png" />
+<img alt="../_images/0fcbfcf2507fd313999dcbb94fab77f918a5e1a4b975768556d366136623cac0.png" src="../_images/0fcbfcf2507fd313999dcbb94fab77f918a5e1a4b975768556d366136623cac0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Observation:</strong> The training loss remains relatively high, and the red prediction curve is too flat or linear.</p></li>
+</ul>
+</section>
+<section id="illustrating-over-fitting">
+<h5>Illustrating Over-fitting<a class="headerlink" href="#illustrating-over-fitting" title="Link to this heading">#</a></h5>
+<p>Increase capacity to 512 hidden units and train for 500 epochs—the model will “memorize” evrything.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increase capacity: 1→512→1 network</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LargeNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model_over</span> <span class="o">=</span> <span class="n">SimpleNet</span><span class="p">()</span>
+<span class="n">train_and_evaluate</span><span class="p">(</span><span class="n">model_over</span><span class="p">,</span>
+                   <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+                   <span class="n">early_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9559f6165e08b02245a94734c6456b3da14f0c18c51645f5a9d37e7d9adefc81.png" src="../_images/9559f6165e08b02245a94734c6456b3da14f0c18c51645f5a9d37e7d9adefc81.png" />
+<img alt="../_images/e6d67c6a83ca3e7140c5bc6784b356545dc3111c9299539fb7719e75187af0d7.png" src="../_images/e6d67c6a83ca3e7140c5bc6784b356545dc3111c9299539fb7719e75187af0d7.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Observation:</strong> Training loss drops near zero, but the final fit oscillates wildly, chasing every noisy point. It <strong>over-fits</strong> the deterministic function’s high-frequency component.</p></li>
+</ul>
+</section>
+</section>
+<section id="adding-early-stopping">
+<h4>Adding Early Stopping<a class="headerlink" href="#adding-early-stopping" title="Link to this heading">#</a></h4>
+<p>Finally, we demonstrate early stopping on the large model: we’ll monitor validation loss and halt training if it fails to improve for 10 consecutive epochs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_es</span> <span class="o">=</span> <span class="n">LargeNet</span><span class="p">()</span>
+<span class="n">stop_epoch</span> <span class="o">=</span> <span class="n">train_and_evaluate</span><span class="p">(</span><span class="n">model_es</span><span class="p">,</span>
+                                <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                                <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+                                <span class="n">early_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>→ Early stopping at epoch 626 (best at 606)
+</pre></div>
+</div>
+<img alt="../_images/f69c82003c49bc7a706f7b4e124a02c2a41c20861152b6deb7e609b399862566.png" src="../_images/f69c82003c49bc7a706f7b4e124a02c2a41c20861152b6deb7e609b399862566.png" />
+<img alt="../_images/bf15289f79f3078fd045168f6bb2b428d1d2abab9189d494b56ecb22c6213d76.png" src="../_images/bf15289f79f3078fd045168f6bb2b428d1d2abab9189d494b56ecb22c6213d76.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="finding-pi">
+<h2>Finding <span class="math notranslate nohighlight">\(\pi\)</span><a class="headerlink" href="#finding-pi" title="Link to this heading">#</a></h2>
+<section id="the-classic-approach">
+<h3>The Classic approach<a class="headerlink" href="#the-classic-approach" title="Link to this heading">#</a></h3>
+<p>Before trying with machine learning, let us first use the Monte Carlo method for estimating <span class="math notranslate nohighlight">\(\pi\)</span>. The concept is simple: imagine randomly tossing darts at a dartboard mounted to a square. Then, <span class="math notranslate nohighlight">\(\pi\)</span> can be approximated by four times the number of darts hitting the dartboard divided by the total number of darts thrown.</p>
+<blockquote>
+<div><p>The ratio of a circle’s area (<span class="math notranslate nohighlight">\(\pi r^2\)</span>) with that to the area of a square (<span class="math notranslate nohighlight">\(4 r^2\)</span>) is <span class="math notranslate nohighlight">\(\frac{\pi}{4}\)</span>. With a unit circle, we measure the fraction <span class="math notranslate nohighlight">\(\frac{\pi}{4}\)</span> through randomness.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Number of random points</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Generate random points in the square [-1, 1] x [-1, 1]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+
+<span class="c1"># Determine which points are inside the circle</span>
+<span class="n">circled</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+<span class="c1"># Estimate PI: fraction of points inside the circle times four</span>
+<span class="n">pi_val</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">circled</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimated value of PI: </span><span class="si">{</span><span class="n">pi_val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Points inside the circle in blue</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">circled</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">circled</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Inside Circle&#39;</span><span class="p">)</span>
+<span class="c1"># Points outside the circle in red</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">~</span><span class="n">circled</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="o">~</span><span class="n">circled</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outside Circle&#39;</span><span class="p">)</span>
+
+<span class="c1"># Draw the circle outline for reference</span>
+<span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Circle&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monte Carlo PI Estimation: </span><span class="si">{</span><span class="n">pi_val</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Set ticks to be in increments of 0.8</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimated value of PI: 3.18
+</pre></div>
+</div>
+<img alt="../_images/79923da832b48911884833e46c050a02672f08b1fd9a6b4987f9b707b33ad1a9.png" src="../_images/79923da832b48911884833e46c050a02672f08b1fd9a6b4987f9b707b33ad1a9.png" />
+</div>
+</div>
+</section>
+<section id="the-machine-learning-approach">
+<h3>The machine Learning approach<a class="headerlink" href="#the-machine-learning-approach" title="Link to this heading">#</a></h3>
+<p>Let us first call the usual libraries for compilation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">TensorDataset</span><span class="p">,</span> <span class="n">random_split</span>
+
+<span class="c1"># For reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;torch._C.Generator at 0x107dbf930&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Main Strategy:</strong> Remember that machine learning is basically learning by example. So in this case we first generate random points on the square and label them as <span class="math notranslate nohighlight">\(1\)</span> or <span class="math notranslate nohighlight">\(0\)</span> depending on wheather or not the points are inside the circle.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate data</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="p">((</span><span class="n">X_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">X_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="c1"># denote the label of the point whether it is inside the circle or not</span>
+
+<span class="c1"># Convert to PyTorch tensors</span>
+<span class="n">X_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span>
+<span class="n">y_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Split into training and validation sets (80/20). For most of the cases this is the standard split</span>
+<span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">train_size</span> <span class="o">=</span> <span class="n">N</span> <span class="o">-</span> <span class="n">val_size</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">X_tensor</span><span class="p">,</span> <span class="n">y_tensor</span><span class="p">)</span>
+<span class="n">train_dataset</span><span class="p">,</span> <span class="n">val_dataset</span> <span class="o">=</span> <span class="n">random_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">train_size</span><span class="p">,</span> <span class="n">val_size</span><span class="p">])</span>
+
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Next step is to define the network or model.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the model</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PiNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">PiNet</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Setting up the hyper parameters and other helpers.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training setup</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span> <span class="c1"># This is the Binary Cross Entropy loss function, specially used when the target is either 0 or 1.</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">patience</span> <span class="o">=</span> <span class="mi">15</span>
+
+
+<span class="c1"># For tracking</span>
+<span class="n">pi_history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">val_loss_history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">decision_boundary_snapshots</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Helper functions for estimating PI and plot decision boundary</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">estimate_pi</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">all_preds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+            <span class="n">all_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">all_preds</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">grid_x</span><span class="p">,</span> <span class="n">grid_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+    <span class="n">grid_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">grid_x</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">grid_y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">grid_points</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">grid_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">grid_x</span><span class="p">,</span> <span class="n">grid_y</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">])</span>
+    
+    <span class="n">X_val_np</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="p">[:][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">y_val_np</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="p">[:][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_val_np</span><span class="p">[</span><span class="n">y_val_np</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_val_np</span><span class="p">[</span><span class="n">y_val_np</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_val_np</span><span class="p">[</span><span class="n">y_val_np</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_val_np</span><span class="p">[</span><span class="n">y_val_np</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: Decision Boundary (π ≈ </span><span class="si">{</span><span class="n">pi_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Let us now train the piNet</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train loop with visual updates</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">patience</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">best_val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<span class="n">best_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">wait</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">yb</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="c1"># Validation</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">val_loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="ow">in</span> <span class="n">val_loader</span><span class="p">:</span>
+            <span class="n">val_loss</span> <span class="o">+=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">xb</span><span class="p">),</span> <span class="n">yb</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">val_loss</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span>
+    <span class="n">val_loss_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+
+    <span class="n">pi_est</span> <span class="o">=</span> <span class="n">estimate_pi</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">)</span>
+    <span class="n">pi_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pi_est</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: Val Loss = </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, π ≈ </span><span class="si">{</span><span class="n">pi_est</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Update best model</span>
+    <span class="k">if</span> <span class="n">val_loss</span> <span class="o">&lt;</span> <span class="n">best_val_loss</span><span class="p">:</span>
+        <span class="n">best_val_loss</span> <span class="o">=</span> <span class="n">val_loss</span>
+        <span class="n">best_epoch</span> <span class="o">=</span> <span class="n">epoch</span>
+        <span class="n">best_model_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="n">wait</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wait</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">wait</span> <span class="o">&gt;=</span> <span class="n">patience</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Early stopping!&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+    <span class="c1"># Plot every 10 epochs</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10: Val Loss = 0.0105, π ≈ 3.138000
+Epoch 20: Val Loss = 0.0203, π ≈ 3.166400
+Epoch 30: Val Loss = 0.0091, π ≈ 3.135000
+</pre></div>
+</div>
+<img alt="../_images/38730730b2e59f36a7abce770d907a756698e2af52bb0d156979c6fe22f9b093.png" src="../_images/38730730b2e59f36a7abce770d907a756698e2af52bb0d156979c6fe22f9b093.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 40: Val Loss = 0.0137, π ≈ 3.158400
+Early stopping!
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Final Plot:</strong>  As the early stopping has occured now we can plot the best trained network, which is saved during training and see the estimate of <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Final plots after training</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_state</span><span class="p">)</span> <span class="c1"># This is the best model saved by the early stopping </span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Best result at epoch </span><span class="si">{</span><span class="n">best_epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: π ≈ </span><span class="si">{</span><span class="n">pi_history</span><span class="p">[</span><span class="n">best_epoch</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (val_loss: </span><span class="si">{</span><span class="n">val_loss_history</span><span class="p">[</span><span class="n">best_epoch</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot loss and π estimate history</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Loss</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_loss_history</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation Loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">best_epoch</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best Epoch </span><span class="si">{</span><span class="n">best_epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Validation Loss&quot;</span><span class="p">)</span>
+
+<span class="c1"># π Estimate</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pi_history</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;π Estimate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True π&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">best_epoch</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Best Epoch </span><span class="si">{</span><span class="n">best_epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epoch&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;π&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;π Estimate Over Epochs&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Final decision boundary</span>
+<span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">best_epoch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best result at epoch 30: π ≈ 3.142200 (val_loss: 0.016775)
+</pre></div>
+</div>
+<img alt="../_images/5009e55446497d8472b17bdd3e3f2729c4876feeb3151a36aa8f3ced974c353d.png" src="../_images/5009e55446497d8472b17bdd3e3f2729c4876feeb3151a36aa8f3ced974c353d.png" />
+<img alt="../_images/d01610b0389f5cb2477503cbaf917a33a1440e749d0a27077cca70ab055b3054.png" src="../_images/d01610b0389f5cb2477503cbaf917a33a1440e749d0a27077cca70ab055b3054.png" />
+</div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -423,7 +1155,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Machine Learning Fundamentals: Gradient Descent</p>
+        <p class="prev-next-title">Gradient Descent</p>
       </div>
     </a>
     <a class="right-next"
@@ -441,6 +1173,48 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">The Imitation Game</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#aritificial-intelligence-and-machine-learning">Aritificial Intelligence and Machine Learning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning">Machine Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-brains-are-amazing-can-we-mimic-that">Human Brains are amazing can we mimic that??</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pytorch">Using PyTorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-model">Defining the Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#over-fitting-vs-under-fitting">Over-fitting vs Under-fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrating-under-fitting">Illustrating Under-fitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#illustrating-over-fitting">Illustrating Over-fitting</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-early-stopping">Adding Early Stopping</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-pi">Finding <span class="math notranslate nohighlight">\(\pi\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classic-approach">The Classic approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine-learning-approach">The machine Learning approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

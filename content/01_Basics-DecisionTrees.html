@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -70,7 +70,7 @@ window.addEventListener("load", () => mermaid.run());
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/01_Basics-DecisionTrees';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Machine Learning Fundamentals: Gradient Descent" href="02_Basics-Gradient.html" />
+    <link rel="next" title="Gradient Descent" href="02_Basics-Gradient.html" />
     <link rel="prev" title="Introduction" href="00_Intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -191,8 +191,9 @@ window.addEventListener("load", () => mermaid.run());
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Machine Learning Fundamentals: Core Concepts Through Decision Trees</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Machine Learning Fundamentals: Gradient Descent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_Basics-Gradient.html">Gradient Descent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_NeuralNetworks.html">The Imitation Game</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="04_ConvNNs.html">Convolutional Neural Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05_Final.html">What’s Next?</a></li>
 </ul>
@@ -405,7 +406,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff">Bias-variance tradeoff</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest-variance-vs-bias">From trees to forest: variance vs. bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forests">From trees to forests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
             </nav>
@@ -1374,9 +1375,8 @@ F1 Score: 0.6923
 <p>This is also one of the motivations behind ensemble methods like random forests: by combining multiple high-variance trees and averaging their predictions, we can significantly reduce variance without significantly increasing bias. This allows us to get the predictive power of complex models while mitigating their tendency to overfit.</p>
 </section>
 </section>
-<section id="from-trees-to-forest-variance-vs-bias">
-<h2>From trees to forest: variance vs. bias<a class="headerlink" href="#from-trees-to-forest-variance-vs-bias" title="Link to this heading">#</a></h2>
-<p>…</p>
+<section id="from-trees-to-forests">
+<h2>From trees to forests<a class="headerlink" href="#from-trees-to-forests" title="Link to this heading">#</a></h2>
 </section>
 <section id="practice">
 <h2>Practice<a class="headerlink" href="#practice" title="Link to this heading">#</a></h2>
@@ -1464,7 +1464,7 @@ F1 Score: 0.6923
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Machine Learning Fundamentals: Gradient Descent</p>
+        <p class="prev-next-title">Gradient Descent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1499,7 +1499,7 @@ F1 Score: 0.6923
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff">Bias-variance tradeoff</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forest-variance-vs-bias">From trees to forest: variance vs. bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forests">From trees to forests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
   </nav></div>
