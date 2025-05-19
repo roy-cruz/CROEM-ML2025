@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -408,6 +408,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine-learning-approach">The machine Learning approach</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What Next?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-models">Unsupervised models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -454,12 +459,12 @@ document.write(`
 </div></blockquote>
 <br>
 <p>Example: <span style="color:blue">Distinguish Squares and Circles</span></p>
-<p><img alt="alt text" src="content/images/square_circle.png" /></p>
+<p><img alt="alt text" src="../_images/square_circle.png" /></p>
 <br><ul class="simple">
 <li><p>The standard coding algorithms that we use are constrained by statements like <em>if</em>, <em>do-while</em>, <em>for</em> etc. Even a very intelligent coder can only cover a finite number of scenarios through these.</p></li>
 </ul>
 <p>Example: <span style="color:blue"> Self driving cars </span></p>
-<p><img alt="alt text" src="content/images/self_drive.png" /></p>
+<p><img alt="alt text" src="../_images/self_drive.png" /></p>
 <p><span style="color:red"> <strong>What if:</strong> There is a human on a wet road and the signal in green?? </span></p>
 <blockquote>
 <div><p><span style="color:blue"> <strong>Since our real world has infinite possibilities, explicit codings are not faithful or even practical</strong>. </span></p>
@@ -1117,6 +1122,65 @@ Early stopping!
 </div>
 </section>
 </section>
+<section id="what-next">
+<h2>What Next?<a class="headerlink" href="#what-next" title="Link to this heading">#</a></h2>
+<p>So far we have only discussed about <strong>Supervised models</strong>. Supervised learning involves training a model on a labeled dataset, meaning each input comes with the correct output. The goal is for the model to learn to predict these labels on new, unseen data.</p>
+<ul class="simple">
+<li><p><strong>Pros:</strong></p>
+<ul>
+<li><p>High accuracy when enough labeled data is available.</p></li>
+<li><p>Predictable performance and easier to evaluate.</p></li>
+<li><p>Well-supported with mature libraries.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons:</strong></p>
+<ul>
+<li><p>Requires large, clean labeled datasets (can be expensive/time-consuming to produce).</p></li>
+<li><p>May overfit if not enough data or too complex a model.</p></li>
+</ul>
+</li>
+</ul>
+<section id="unsupervised-models">
+<h3>Unsupervised models<a class="headerlink" href="#unsupervised-models" title="Link to this heading">#</a></h3>
+<p>Unsupervised learning works with unlabeled data. The model tries to discover hidden patterns or structures in the data.</p>
+<ul class="simple">
+<li><p><strong>Examples:</strong> Clustering customers into groups based on purchasing behavior — the model finds structure without being told what group each customer belongs to. Another interesting example is of the <strong>autoencoder</strong>.</p></li>
+<li><p><strong>Pros:</strong></p>
+<ul>
+<li><p>Works without labeled data.</p></li>
+<li><p>Helps with data exploration, dimensionality reduction, and pattern discovery.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons:</strong></p>
+<ul>
+<li><p>Hard to evaluate the model (no ground truth).</p></li>
+<li><p>May find patterns that are not meaningful or useful.</p></li>
+<li><p>Often requires strong assumptions about data structure.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="reinforcement-learning">
+<h3>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Link to this heading">#</a></h3>
+<p>Reinforcement learning is based on an agent interacting with an environment. The agent learns through trial and error, receiving rewards or penalties for actions it takes.</p>
+<ul class="simple">
+<li><p><strong>Example:</strong> Training a robot to walk or a program to play chess — it learns strategies that maximize short or long-term reward.</p></li>
+<li><p><strong>Pros:</strong></p>
+<ul>
+<li><p>Excellent for sequential decision-making and control tasks.</p></li>
+<li><p>Learns directly from interaction without needing labeled datasets.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons:</strong></p>
+<ul>
+<li><p>Often slow and computationally expensive.</p></li>
+<li><p>May require a lot of exploration or simulation before learning effectively.</p></li>
+<li><p>Sensitive to the choice of reward structure.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1206,6 +1270,11 @@ Early stopping!
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-pi">Finding <span class="math notranslate nohighlight">\(\pi\)</span></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-classic-approach">The Classic approach</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-machine-learning-approach">The machine Learning approach</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-next">What Next?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-models">Unsupervised models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
 </ul>
 </li>
 </ul>
