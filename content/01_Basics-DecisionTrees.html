@@ -406,6 +406,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff">Bias-variance tradeoff</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forests">From trees to forests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
             </nav>
@@ -999,7 +1000,6 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Testing the performance of the model on training and validation data…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing model on training and validation sets</span>
@@ -1374,6 +1374,71 @@ F1 Score: 0.6923
 <p>This is also one of the motivations behind ensemble methods like random forests: by combining multiple high-variance trees and averaging their predictions, we can significantly reduce variance without significantly increasing bias. This allows us to get the predictive power of complex models while mitigating their tendency to overfit.</p>
 </section>
 </section>
+<section id="from-trees-to-forests">
+<h2>From trees to forests<a class="headerlink" href="#from-trees-to-forests" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="n">rf_clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rf_clf</span> <span class="o">=</span> <span class="n">rf_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">X_train</span><span class="p">,</span> 
+    <span class="n">y_train</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Plot decision boundaries for Random Forest</span>
+<span class="n">plot_decision_boundaries</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">rf_clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">])</span>
+
+<span class="c1"># Computing metrics for Random Forest</span>
+<span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">rf_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">rf_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+<span class="c1"># Compute metrics for training and validation sets</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Set Metrics:&quot;</span><span class="p">)</span>
+<span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Validation Set Metrics:&quot;</span><span class="p">)</span>
+<span class="n">compute_metrics</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/220ea9f0a750625c894983c6a9954359f16e8e8605c6033442da119879f6872a.png" src="../_images/220ea9f0a750625c894983c6a9954359f16e8e8605c6033442da119879f6872a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training Set Metrics:
+Accuracy: 0.7918
+Precision: 0.8372
+Recall: 0.8333
+F1 Score: 0.8353
+
+Validation Set Metrics:
+Accuracy: 0.7105
+Precision: 0.7229
+Recall: 0.8571
+F1 Score: 0.7843
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
+    <span class="n">rf_clf</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
+    <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;feature_names&quot;</span><span class="p">],</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;target_names&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/760cbf6c037c007d76bf9f5fd48615358275f04c1e61b91a6b4355fa991b2f0a.png" src="../_images/760cbf6c037c007d76bf9f5fd48615358275f04c1e61b91a6b4355fa991b2f0a.png" />
+</div>
+</div>
+</section>
 <section id="practice">
 <h2>Practice<a class="headerlink" href="#practice" title="Link to this heading">#</a></h2>
 <p>Consider that this data is used for diagnosing tumors. What performance metric would be most useful for this context? Select the appropriate metric and build a classification tree which classifies data with &gt; 0.90 in that metric. Note that you are allowed to use other features and modify the model is other ways. For more information on the things you can change, take a look at the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">documentation</a>.</p>
@@ -1495,6 +1560,7 @@ F1 Score: 0.6923
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff">Bias-variance tradeoff</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-trees-to-forests">From trees to forests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 </ul>
   </nav></div>
